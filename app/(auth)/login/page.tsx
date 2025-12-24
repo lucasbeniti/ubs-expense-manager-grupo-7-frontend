@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Loader2Icon } from 'lucide-react'
 import { toast } from 'sonner'
+
 import { login } from '@/services/auth.service'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -39,65 +40,61 @@ export default function LoginPage() {
       const response = await login(data)
 
       localStorage.setItem('token', response.token)
-
       router.push('/users')
 
-      toast.success('Bem vindo!')
+      toast.success('Bem-vindo!')
     } catch {
       toast.error('E-mail ou senha inválidos')
     }
   }
 
   return (
-    <main className="bg-muted flex min-h-screen items-center justify-center px-4">
-      <Card className="w-full max-w-4xl overflow-hidden p-0">
-        <CardContent className="grid p-0 md:grid-cols-2">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col justify-between p-6 md:p-8"
-          >
-            <FieldGroup>
-              <div className="text-center">
-                <h1 className="text-2xl font-bold">Bem vindo!</h1>
-                <p className="text-muted-foreground">Acesse a sua conta UBS Expense Manager</p>
-              </div>
-
-              <Field>
-                <FieldLabel htmlFor="email">E-mail</FieldLabel>
-                <Input id="email" type="email" {...register('email')} />
-                <div className="h-4">
-                  {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
+    <main className="grid min-h-screen grid-cols-1 md:grid-cols-2">
+      <div className="bg-muted flex items-center justify-center px-4">
+        <Card className="w-full max-w-md p-0">
+          <CardContent className="p-6 md:p-8">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <FieldGroup>
+                <div className="text-center">
+                  <h1 className="text-2xl font-bold">Bem-vindo!</h1>
+                  <p className="text-muted-foreground">Acesse sua conta UBS Expense Manager</p>
                 </div>
-              </Field>
 
-              <Field>
-                <FieldLabel htmlFor="password">Senha</FieldLabel>
-                <Input id="password" type="password" {...register('password')} />
-                <div className="h-4">
+                <Field>
+                  <FieldLabel htmlFor="email">E-mail</FieldLabel>
+                  <Input id="email" type="email" {...register('email')} />
+
+                  {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
+                </Field>
+
+                <Field>
+                  <FieldLabel htmlFor="password">Senha</FieldLabel>
+                  <Input id="password" type="password" {...register('password')} />
+
                   {errors.password && (
                     <p className="text-xs text-red-500">{errors.password.message}</p>
                   )}
-                </div>
-              </Field>
-            </FieldGroup>
+                </Field>
 
-            <Button type="submit" disabled={isSubmitting} className="mt-6">
-              {isSubmitting && <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />}
-              Entrar
-            </Button>
-          </form>
+                <Button type="submit" disabled={isSubmitting} className="w-full">
+                  {isSubmitting && <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />}
+                  Entrar
+                </Button>
+              </FieldGroup>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
 
-          <div className="relative hidden md:block">
-            <Image
-              src="/ubs-logo.webp"
-              alt="UBS Expense Manager"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-        </CardContent>
-      </Card>
+      <div className="relative hidden md:block">
+        <Image
+          src="/ubs-logo.webp"
+          alt="UBS Expense Manager"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
     </main>
   )
 }
