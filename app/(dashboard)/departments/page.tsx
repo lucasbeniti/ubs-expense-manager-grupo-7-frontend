@@ -1,26 +1,26 @@
 import { Button } from '@/components/ui/button'
 import { PlusIcon } from 'lucide-react'
-import { UsersTable } from './_components/users-table'
 import { Separator } from '@/components/ui/separator'
-import { getUsers } from './_services/user.service'
+import { getDepartments } from './_services/department.service'
+import { DepartmentsTable } from './_components/departments-table'
 
 const UsersPage = async () => {
-  const users = await getUsers()
+  const users = await getDepartments()
 
   return (
     <div className="space-y-6 p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl">Usuários</h1>
+        <h1 className="text-2xl">Departamentos</h1>
 
         <Button className="rounded-full">
-          Adicionar usuário
+          Adicionar departamento
           <PlusIcon />
         </Button>
       </div>
 
       <Separator />
 
-      <UsersTable data={users} />
+      <DepartmentsTable data={users} />
     </div>
   )
 }
