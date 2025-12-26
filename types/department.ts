@@ -1,5 +1,5 @@
 export interface IDepartment {
   id: string
   name: string
-  monthlyBudget: number
+  monthly_budget: number
 }

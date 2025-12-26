@@ -2,12 +2,12 @@
 
 import { DataTable } from '@/components/data-table'
 import { columns } from './columns'
-import { IUser } from '@/types/user'
+import { IDepartment } from '@/types/department'
 
 interface Props {
-  data: IUser[]
+  data: IDepartment[]
 }
 
-export function UsersTable({ data }: Props) {
+export function DepartmentsTable({ data }: Props) {
   return <DataTable columns={columns} data={data} />
 }
