@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import { Loader2Icon } from 'lucide-react'
 import { toast } from 'sonner'
 
-import { login } from '@/services/auth.service'
+import { login } from '@/app/(auth)/_services/auth.service'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'

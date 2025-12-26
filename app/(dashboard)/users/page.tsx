@@ -1,13 +1,28 @@
-export default function UsersPage() {
+import { Button } from '@/components/ui/button'
+import { PlusIcon } from 'lucide-react'
+import { UsersTable } from './_components/users-table'
+import { Separator } from '@/components/ui/separator'
+import { getUsers } from './_services/user.service'
+
+const UsersPage = async () => {
+  const users = await getUsers()
+
   return (
-    <>
-      <div className="grid auto-rows-min gap-4 pt-6 md:grid-cols-3">
-        <div className="bg-muted/50 aspect-video rounded-xl" />
-        <div className="bg-muted/50 aspect-video rounded-xl" />
-        <div className="bg-muted/50 aspect-video rounded-xl" />
+    <div className="space-y-6 p-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl">Usuários</h1>
+
+        <Button className="rounded-full">
+          Adicionar usuário
+          <PlusIcon />
+        </Button>
       </div>
 
-      <div className="bg-muted/50 min-h-screen flex-1 rounded-xl md:min-h-min" />
-    </>
+      <Separator />
+
+      <UsersTable data={users} />
+    </div>
   )
 }
+
+export default UsersPage
