@@ -9,3 +9,10 @@ export async function getDepartments(): Promise<IDepartment[]> {
 
   return data
 }
+
+/**
+ * DELETE /departments/{id}
+ */
+export async function deleteDepartment(departmentId: string) {
+  await api.delete(`/departments/${departmentId}`)
+}
