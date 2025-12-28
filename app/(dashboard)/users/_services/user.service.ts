@@ -9,3 +9,10 @@ export async function getUsers(): Promise<IUser[]> {
 
   return data
 }
+
+/**
+ * DELETE /users/{id}
+ */
+export async function deleteUser(userId: string) {
+  await api.delete(`/users/${userId}`)
+}

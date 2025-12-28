@@ -4,10 +4,6 @@ import { DataTable } from '@/components/data-table'
 import { columns } from './columns'
 import { IUser } from '@/types/user'
 
-interface Props {
-  data: IUser[]
-}
-
-export function UsersTable({ data }: Props) {
+export function UsersTable({ data }: { data: IUser[] }) {
   return <DataTable columns={columns} data={data} />
 }

@@ -3,8 +3,9 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { IUser } from '@/types/user'
 import { Button } from '@/components/ui/button'
-import { PencilIcon, Trash2Icon } from 'lucide-react'
+import { PencilIcon } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import DeleteUserButton from './delete-user-button'
 
 export const columns: ColumnDef<IUser>[] = [
   {
@@ -58,15 +59,7 @@ export const columns: ColumnDef<IUser>[] = [
             <TooltipContent>Editar usuário</TooltipContent>
           </Tooltip>
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Trash2Icon className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-
-            <TooltipContent>Deletar usuário</TooltipContent>
-          </Tooltip>
+          <DeleteUserButton user={row.original} />
         </div>
       )
     },
