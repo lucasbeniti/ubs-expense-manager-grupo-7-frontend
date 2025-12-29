@@ -1,11 +1,12 @@
 import { Button } from '@/components/ui/button'
 import { PlusIcon } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
-import { getDepartments } from './_services/department.service'
-import { DepartmentsTable } from './_components/departments-table'
+import { departmentService } from '@/lib/services/department.service'
+import { departmentColumns } from './_components/department-columns'
+import { DataTable } from '@/components/ui/data-table'
 
-const UsersPage = async () => {
-  const users = await getDepartments()
+const DepartmentsPage = async () => {
+  const departments = await departmentService.getAll()
 
   return (
     <div className="space-y-6 p-6">
@@ -20,9 +21,9 @@ const UsersPage = async () => {
 
       <Separator />
 
-      <DepartmentsTable data={users} />
+      <DataTable columns={departmentColumns} data={departments} />
     </div>
   )
 }
 
-export default UsersPage
+export default DepartmentsPage

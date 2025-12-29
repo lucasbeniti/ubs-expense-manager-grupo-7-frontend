@@ -1,13 +1,15 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { IUser } from '@/types/user'
+import { IUser } from '@/lib/types/user'
 import { Button } from '@/components/ui/button'
 import { PencilIcon } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import DeleteUserButton from './delete-user-button'
+import { DeleteButton } from '@/components/shared/delete-button'
+import { userService } from '@/lib/services/user.service'
+import { USER_POSITION_LABELS } from '@/constants/user'
 
-export const columns: ColumnDef<IUser>[] = [
+export const userColumns: ColumnDef<IUser>[] = [
   {
     accessorKey: 'name',
     header: 'Nome',
@@ -22,13 +24,7 @@ export const columns: ColumnDef<IUser>[] = [
     cell: ({ row }) => {
       const position = row.getValue('position') as string
 
-      const labels: Record<string, string> = {
-        employee: 'Funcionário',
-        manager: 'Gestor',
-        finance: 'Financeiro',
-      }
-
-      return labels[position]
+      return USER_POSITION_LABELS[position]
     },
   },
   {
@@ -36,19 +32,17 @@ export const columns: ColumnDef<IUser>[] = [
     header: 'Departamento',
   },
   {
-    accessorKey: 'manager',
+    accessorKey: 'manager.name',
     header: 'Gestor',
-    cell: ({ row }) => {
-      const manager = row.original.manager
-      return manager ? manager.name : 'N/A'
-    },
   },
   {
     id: 'actions',
     header: 'Ações',
     cell: ({ row }) => {
+      const user = row.original
+
       return (
-        <div className="flex items-center gap-2">
+        <>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -56,11 +50,11 @@ export const columns: ColumnDef<IUser>[] = [
               </Button>
             </TooltipTrigger>
 
-            <TooltipContent>Editar usuário</TooltipContent>
+            <TooltipContent>Editar departamento</TooltipContent>
           </Tooltip>
 
-          <DeleteUserButton user={row.original} />
-        </div>
+          <DeleteButton id={user.id} onDelete={userService.delete} entityName="usuário" />
+        </>
       )
     },
   },
