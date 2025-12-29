@@ -4,14 +4,17 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { PencilIcon } from 'lucide-react'
-import DepartmentUpsertDialog from './department-upsert-dialog'
+import UserUpsertDialog from './user-upsert-dialog'
 import { IDepartment } from '@/lib/types/department'
+import { IUser } from '@/lib/types/user'
 
-interface UpdateDepartmentButtonProps {
-  department: IDepartment
+interface UpdateUserButtonProps {
+  user: IUser
+  departments: IDepartment[]
+  managers: IUser[]
 }
 
-const UpdateDepartmentButton = ({ department }: UpdateDepartmentButtonProps) => {
+const UpdateUserButton = ({ user, departments, managers }: UpdateUserButtonProps) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -22,21 +25,25 @@ const UpdateDepartmentButton = ({ department }: UpdateDepartmentButtonProps) => 
             <PencilIcon className="h-4 w-4" />
           </Button>
         </TooltipTrigger>
-
-        <TooltipContent>Editar departamento</TooltipContent>
+        <TooltipContent>Editar usuário</TooltipContent>
       </Tooltip>
 
-      <DepartmentUpsertDialog
+      <UserUpsertDialog
         open={open}
         onOpenChange={setOpen}
+        departments={departments}
+        managers={managers}
         defaultValues={{
-          id: department.id,
-          name: department.name,
-          monthly_budget: department.monthly_budget,
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          department_id: user.department.id,
+          manager_id: user.manager?.id,
         }}
       />
     </>
   )
 }
 
-export default UpdateDepartmentButton
+export default UpdateUserButton
