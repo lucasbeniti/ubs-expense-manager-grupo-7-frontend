@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { DeleteDialog } from './delete-dialog'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { capitalize } from '@/_lib/utils/string'
+import { capitalize } from '@/lib/utils/string'
 
 interface DeleteButtonProps {
   id: string
