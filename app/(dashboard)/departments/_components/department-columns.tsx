@@ -4,11 +4,12 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
 import { PencilIcon } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { IDepartment } from '@/types/department'
-import { formatCurrencyToBRL } from '@/utils/currency'
-import DeleteDepartmentButton from './delete-department-button'
+import { IDepartment } from '@/lib/types/department'
+import { formatCurrencyToBRL } from '@/lib/utils/currency'
+import { DeleteButton } from '@/components/shared/delete-button'
+import { departmentService } from '@/lib/services/department.service'
 
-export const columns: ColumnDef<IDepartment>[] = [
+export const departmentColumns: ColumnDef<IDepartment>[] = [
   {
     accessorKey: 'name',
     header: 'Nome',
@@ -24,6 +25,8 @@ export const columns: ColumnDef<IDepartment>[] = [
     id: 'actions',
     header: 'Ações',
     cell: ({ row }) => {
+      const department = row.original
+
       return (
         <div className="flex items-center gap-2">
           <Tooltip>
@@ -36,7 +39,11 @@ export const columns: ColumnDef<IDepartment>[] = [
             <TooltipContent>Editar departamento</TooltipContent>
           </Tooltip>
 
-          <DeleteDepartmentButton department={row.original} />
+          <DeleteButton
+            id={department.id}
+            onDelete={departmentService.delete}
+            entityName="departamento"
+          />
         </div>
       )
     },

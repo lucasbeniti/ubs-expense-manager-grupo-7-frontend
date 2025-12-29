@@ -7,12 +7,11 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Loader2Icon } from 'lucide-react'
 import { toast } from 'sonner'
-
-import { login } from '@/app/(auth)/_services/auth.service'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import { authService } from '@/lib/services/auth.service'
 
 const loginSchema = z.object({
   email: z.string().min(1, 'E-mail é obrigatório').email('E-mail inválido'),
@@ -37,7 +36,7 @@ export default function LoginPage() {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      const response = await login(data)
+      const response = await authService.login(data)
 
       localStorage.setItem('token', response.token)
       router.push('/users')
