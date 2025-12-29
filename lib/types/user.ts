@@ -1,5 +1,3 @@
-import { IDepartment } from './departments/department'
-
 export type UserRole = 'employee' | 'manager' | 'finance'
 
 export interface IUser {
@@ -7,6 +5,28 @@ export interface IUser {
   name: string
   email: string
   role: UserRole
-  department: IDepartment
-  manager?: Pick<IUser, 'id' | 'name' | 'email'>
+  department: {
+    id: string
+    name: string
+  }
+  manager?: {
+    id: string
+    name: string
+  } | null
+}
+
+export interface CreateUserDTO {
+  name: string
+  email: string
+  role: UserRole
+  department_id: string
+  manager_id?: string
+}
+
+export interface UpdateUserDTO {
+  name?: string
+  email?: string
+  role?: UserRole
+  department_id?: string
+  manager_id?: string | null
 }

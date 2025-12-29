@@ -1,11 +1,11 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { IDepartment } from '@/lib/types/departments/department'
 import { formatCurrencyToBRL } from '@/lib/utils/currency'
 import { DeleteButton } from '@/components/shared/delete-button'
 import { departmentService } from '@/lib/services/department.service'
 import UpdateDepartmentButton from './update-department-button'
+import { IDepartment } from '@/lib/types/department'
 
 export const departmentColumns: ColumnDef<IDepartment>[] = [
   {
