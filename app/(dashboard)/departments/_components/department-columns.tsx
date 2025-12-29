@@ -1,13 +1,11 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { Button } from '@/components/ui/button'
-import { PencilIcon } from 'lucide-react'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { IDepartment } from '@/lib/types/department'
+import { IDepartment } from '@/lib/types/departments/department'
 import { formatCurrencyToBRL } from '@/lib/utils/currency'
 import { DeleteButton } from '@/components/shared/delete-button'
 import { departmentService } from '@/lib/services/department.service'
+import UpdateDepartmentButton from './update-department-button'
 
 export const departmentColumns: ColumnDef<IDepartment>[] = [
   {
@@ -29,15 +27,7 @@ export const departmentColumns: ColumnDef<IDepartment>[] = [
 
       return (
         <div className="flex items-center gap-2">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <PencilIcon className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-
-            <TooltipContent>Editar departamento</TooltipContent>
-          </Tooltip>
+          <UpdateDepartmentButton department={department} />
 
           <DeleteButton
             id={department.id}

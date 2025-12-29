@@ -6,6 +6,7 @@ import { DeleteDialog } from './delete-dialog'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { capitalize } from '@/lib/utils/string'
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 
 interface DeleteButtonProps {
   id: string
@@ -37,9 +38,15 @@ export function DeleteButton({ id, onDelete, entityName = 'item' }: DeleteButton
 
   return (
     <>
-      <Button variant="ghost" size="icon" onClick={() => setOpen(true)}>
-        <Trash2 className="h-4 w-4" />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="ghost" size="icon" onClick={() => setOpen(true)}>
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </TooltipTrigger>
+
+        <TooltipContent>Deletar {entityName}</TooltipContent>
+      </Tooltip>
 
       <DeleteDialog
         open={open}
