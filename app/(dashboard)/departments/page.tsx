@@ -1,9 +1,8 @@
-import { Button } from '@/components/ui/button'
-import { PlusIcon } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { departmentService } from '@/lib/services/department.service'
 import { departmentColumns } from './_components/department-columns'
 import { DataTable } from '@/components/ui/data-table'
+import CreateDepartmentButton from './_components/create-department-button'
 
 const DepartmentsPage = async () => {
   const departments = await departmentService.getAll()
@@ -13,10 +12,7 @@ const DepartmentsPage = async () => {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl">Departamentos</h1>
 
-        <Button className="rounded-full">
-          Adicionar departamento
-          <PlusIcon />
-        </Button>
+        <CreateDepartmentButton />
       </div>
 
       <Separator />

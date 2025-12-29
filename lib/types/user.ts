@@ -1,4 +1,4 @@
-import { IDepartment } from './department'
+import { IDepartment } from './departments/department'
 
 export type UserRole = 'employee' | 'manager' | 'finance'
 
