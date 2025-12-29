@@ -1,6 +1,5 @@
 import { api } from '@/lib/utils/api'
-import { IDepartment } from '../types/departments/department'
-import { CreateDepartmentDTO, UpdateDepartmentDTO } from '../types/departments/department.dto'
+import { IDepartment, CreateDepartmentDTO, UpdateDepartmentDTO } from '../types/department'
 
 class DepartmentService {
   async getAll(): Promise<IDepartment[]> {

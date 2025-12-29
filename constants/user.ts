@@ -1,4 +1,4 @@
-export const USER_POSITION_LABELS: Record<string, string> = {
+export const USER_ROLE_LABELS: Record<string, string> = {
   employee: 'Funcionário',
   manager: 'Gestor',
   finance: 'Financeiro',

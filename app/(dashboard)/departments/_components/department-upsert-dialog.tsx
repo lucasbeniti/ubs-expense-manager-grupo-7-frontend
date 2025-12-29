@@ -101,7 +101,7 @@ const DepartmentUpsertDialog = ({
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
-                    <Input placeholder="Financeiro" {...field} />
+                    <Input placeholder="Nome do departamento" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -116,7 +116,7 @@ const DepartmentUpsertDialog = ({
                   <FormControl>
                     <MoneyInput
                       placeholder="R$ 0,00"
-                      value={field.value ?? 0}
+                      value={field.value}
                       onValueChange={(value) => field.onChange(value)}
                     />
                   </FormControl>

@@ -1,15 +1,14 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { IUser } from '@/lib/types/user'
-import { Button } from '@/components/ui/button'
-import { PencilIcon } from 'lucide-react'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { DeleteButton } from '@/components/shared/delete-button'
 import { userService } from '@/lib/services/user.service'
-import { USER_POSITION_LABELS } from '@/constants/user'
+import { USER_ROLE_LABELS } from '@/constants/user'
+import UpdateUserButton from './update-user-button'
+import { IDepartment } from '@/lib/types/department'
+import { IUser } from '@/lib/types/user'
 
-export const userColumns: ColumnDef<IUser>[] = [
+export const userColumns = (departments: IDepartment[], managers: IUser[]): ColumnDef<IUser>[] => [
   {
     accessorKey: 'name',
     header: 'Nome',
@@ -19,13 +18,9 @@ export const userColumns: ColumnDef<IUser>[] = [
     header: 'Email',
   },
   {
-    accessorKey: 'position',
+    accessorKey: 'role',
     header: 'Cargo',
-    cell: ({ row }) => {
-      const position = row.getValue('position') as string
-
-      return USER_POSITION_LABELS[position]
-    },
+    cell: ({ row }) => USER_ROLE_LABELS[row.getValue('role') as string],
   },
   {
     accessorKey: 'department.name',
@@ -43,15 +38,7 @@ export const userColumns: ColumnDef<IUser>[] = [
 
       return (
         <>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <PencilIcon className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-
-            <TooltipContent>Editar departamento</TooltipContent>
-          </Tooltip>
+          <UpdateUserButton user={user} departments={departments} managers={managers} />
 
           <DeleteButton id={user.id} onDelete={userService.delete} entityName="usuário" />
         </>
