@@ -1,6 +1,6 @@
 'use client'
 
-import { AppSidebar } from '@/components/app-sidebar'
+import { AppSidebar } from '@/components/shared/app-sidebar'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

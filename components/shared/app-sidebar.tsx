@@ -3,8 +3,8 @@
 import * as React from 'react'
 import { Bell, Building2, ChartBarStacked, Command, FileSearch, Receipt, Users } from 'lucide-react'
 
-import { NavItems } from '@/components/nav-items'
-import { NavUser } from '@/components/nav-user'
+import { NavItems } from '@/components/shared/nav-items'
+import { NavUser } from '@/components/shared/nav-user'
 import {
   Sidebar,
   SidebarContent,

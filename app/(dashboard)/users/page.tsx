@@ -1,11 +1,12 @@
 import { Button } from '@/components/ui/button'
 import { PlusIcon } from 'lucide-react'
-import { UsersTable } from './_components/users-table'
 import { Separator } from '@/components/ui/separator'
-import { getUsers } from './_services/user.service'
+import { DataTable } from '@/components/ui/data-table'
+import { userColumns } from './_components/user-columns'
+import { userService } from '@/lib/services/user.service'
 
 const UsersPage = async () => {
-  const users = await getUsers()
+  const users = await userService.getAll()
 
   return (
     <div className="space-y-6 p-6">
@@ -20,7 +21,7 @@ const UsersPage = async () => {
 
       <Separator />
 
-      <UsersTable data={users} />
+      <DataTable columns={userColumns} data={users} />
     </div>
   )
 }
