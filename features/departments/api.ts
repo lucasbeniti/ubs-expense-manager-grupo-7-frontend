@@ -2,24 +2,24 @@ import { api } from '@/lib/utils/api'
 import { IDepartment } from './types'
 import { DepartmentFormData } from './schema'
 
-export async function getDepartments(): Promise<IDepartment[]> {
+export const getDepartments = async (): Promise<IDepartment[]> => {
   const { data } = await api.get<IDepartment[]>('/departments')
   return data
 }
 
-export async function createDepartment(payload: DepartmentFormData): Promise<IDepartment> {
+export const createDepartment = async (payload: DepartmentFormData): Promise<IDepartment> => {
   const { data } = await api.post<IDepartment>('/departments', payload)
   return data
 }
 
-export async function updateDepartment(
+export const updateDepartment = async (
   id: string,
   payload: DepartmentFormData
-): Promise<IDepartment> {
+): Promise<IDepartment> => {
   const { data } = await api.put<IDepartment>(`/departments/${id}`, payload)
   return data
 }
 
-export async function deleteDepartment(id: string): Promise<void> {
+export const deleteDepartment = async (id: string): Promise<void> => {
   await api.delete(`/departments/${id}`)
 }
