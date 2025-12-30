@@ -1,4 +1,4 @@
-import { api } from '@/lib/utils/api'
+import { api } from '@/lib/http/api'
 import { ICategory, CreateCategoryDTO, UpdateCategoryDTO } from './types'
 
 export const getCategories = async (): Promise<ICategory[]> => {
