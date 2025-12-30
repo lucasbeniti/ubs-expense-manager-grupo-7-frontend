@@ -4,9 +4,9 @@ import { ColumnDef } from '@tanstack/react-table'
 import { formatCurrencyToBRL } from '@/lib/utils/currency'
 import { DeleteButton } from '@/components/shared/delete-button'
 import UpdateCategoryButton from './update-category-button'
-import { categoryService } from '@/lib/services/category.service'
-import { ICategory } from '@/lib/types/category'
 import { formatToBrazilianDatetime } from '@/lib/utils/date'
+import { ICategory } from '../types'
+import { deleteCategory } from '../api'
 
 export const categoryColumns: ColumnDef<ICategory>[] = [
   {
@@ -44,7 +44,7 @@ export const categoryColumns: ColumnDef<ICategory>[] = [
         <div className="flex items-center gap-2">
           <UpdateCategoryButton category={category} />
 
-          <DeleteButton id={category.id} onDelete={categoryService.delete} entityName="categoria" />
+          <DeleteButton id={category.id} onDelete={deleteCategory} entityName="categoria" />
         </div>
       )
     },

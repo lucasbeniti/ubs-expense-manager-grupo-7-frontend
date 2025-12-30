@@ -1,11 +1,11 @@
 import { Separator } from '@/components/ui/separator'
 import { DataTable } from '@/components/ui/data-table'
-import CreateCategoryButton from './_components/create-category-button'
-import { categoryColumns } from './_components/category-columns'
-import { categoryService } from '@/lib/services/category.service'
+import CreateCategoryButton from '../../../features/categories/components/create-category-button'
+import { categoryColumns } from '../../../features/categories/components/category-columns'
+import { getCategories } from '@/features/categories/api'
 
 const CategoriesPage = async () => {
-  const categories = await categoryService.getAll()
+  const categories = await getCategories()
 
   return (
     <div className="space-y-6 p-6">
