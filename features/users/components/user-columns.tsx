@@ -2,12 +2,12 @@
 
 import { ColumnDef } from '@tanstack/react-table'
 import { DeleteButton } from '@/components/shared/delete-button'
-import { userService } from '@/lib/services/user.service'
-import { USER_ROLE_LABELS } from '@/constants/user'
 import UpdateUserButton from './update-user-button'
-import { IDepartment } from '@/lib/types/department'
-import { IUser } from '@/lib/types/user'
 import { formatToBrazilianDatetime } from '@/lib/utils/date'
+import { IDepartment } from '@/features/departments/types'
+import { IUser } from '../types'
+import { deleteUser } from '../api'
+import { USER_ROLE_LABELS } from '../constants'
 
 export const userColumns = (departments: IDepartment[], managers: IUser[]): ColumnDef<IUser>[] => [
   {
@@ -48,7 +48,7 @@ export const userColumns = (departments: IDepartment[], managers: IUser[]): Colu
         <>
           <UpdateUserButton user={user} departments={departments} managers={managers} />
 
-          <DeleteButton id={user.id} onDelete={userService.delete} entityName="usuário" />
+          <DeleteButton id={user.id} onDelete={deleteUser} entityName="usuário" />
         </>
       )
     },

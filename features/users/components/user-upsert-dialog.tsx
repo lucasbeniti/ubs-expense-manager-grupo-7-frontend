@@ -29,15 +29,15 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
-import { userService } from '@/lib/services/user.service'
-import { UserFormData, userSchema } from '@/lib/schemas/user.schema'
 import { Separator } from '@/components/ui/separator'
 import { useTransition } from 'react'
 import { toast } from 'sonner'
 import { Loader2Icon } from 'lucide-react'
-import { USER_ROLE_LABELS } from '@/constants/user'
-import { IDepartment } from '@/lib/types/department'
-import { IUser } from '@/lib/types/user'
+import { IDepartment } from '@/features/departments/types'
+import { IUser } from '../types'
+import { UserFormData, userSchema } from '../schema'
+import { createUser, updateUser } from '../api'
+import { USER_ROLE_LABELS } from '../constants'
 
 interface UserUpsertDialogProps {
   open: boolean
@@ -85,10 +85,10 @@ const UserUpsertDialog = ({
     startTransition(async () => {
       try {
         if (isEditing) {
-          await userService.update(defaultValues!.id, payload)
+          await updateUser(defaultValues!.id, payload)
           toast.success('Usuário atualizado com sucesso.')
         } else {
-          await userService.create(payload)
+          await createUser(payload)
           toast.success('Usuário criado com sucesso.')
         }
 

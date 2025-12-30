@@ -26,45 +26,47 @@ import { useTransition } from 'react'
 import { toast } from 'sonner'
 import { Loader2Icon } from 'lucide-react'
 import { MoneyInput } from '@/components/shared/money-input'
-import { CategoryFormData, categorySchema } from '@/lib/schemas/category.schema'
-import { categoryService } from '@/lib/services/category.service'
+import { DepartmentFormData, departmentSchema } from '../schema'
+import { createDepartment, updateDepartment } from '../api'
 
-interface CategoryUpsertDialogProps {
+interface DepartmentUpsertDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   defaultValues?: {
     id: string
     name: string
-    daily_limit: number
-    monthly_limit: number
+    monthly_budget: number
   }
 }
 
-const CategoryUpsertDialog = ({ open, onOpenChange, defaultValues }: CategoryUpsertDialogProps) => {
+const DepartmentUpsertDialog = ({
+  open,
+  onOpenChange,
+  defaultValues,
+}: DepartmentUpsertDialogProps) => {
   const router = useRouter()
-  const form = useForm<CategoryFormData>({
-    resolver: zodResolver(categorySchema),
+  const form = useForm<DepartmentFormData>({
+    resolver: zodResolver(departmentSchema),
     defaultValues: {
       name: defaultValues?.name ?? '',
-      daily_limit: Number(defaultValues?.daily_limit) ?? 0,
-      monthly_limit: Number(defaultValues?.monthly_limit) ?? 0,
+      monthly_budget: Number(defaultValues?.monthly_budget) ?? 0,
     },
   })
 
   const isEditing = !!defaultValues
   const [isPending, startTransition] = useTransition()
 
-  async function onSubmit(data: CategoryFormData) {
+  async function onSubmit(data: DepartmentFormData) {
     startTransition(async () => {
       try {
         if (isEditing) {
-          await categoryService.update(defaultValues!.id, data)
+          await updateDepartment(defaultValues!.id, data)
 
-          toast.success('Categoria atualizado com sucesso.')
+          toast.success('Departamento atualizado com sucesso.')
         } else {
-          await categoryService.create(data)
+          await createDepartment(data)
 
-          toast.success('Categoria criado com sucesso.')
+          toast.success('Departamento criado com sucesso.')
         }
         form.reset()
 
@@ -74,7 +76,7 @@ const CategoryUpsertDialog = ({ open, onOpenChange, defaultValues }: CategoryUps
       } catch (error) {
         console.error(error)
 
-        toast.error('Erro ao salvar categoria.')
+        toast.error('Erro ao salvar departamento.')
       }
     })
   }
@@ -83,10 +85,10 @@ const CategoryUpsertDialog = ({ open, onOpenChange, defaultValues }: CategoryUps
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Atualizar' : 'Adicionar'} categoria</DialogTitle>
+          <DialogTitle>{isEditing ? 'Atualizar' : 'Adicionar'} departamento</DialogTitle>
           <DialogDescription>
-            Insira os dados abaixo para efetuar a {isEditing ? 'atualização da' : 'criação de uma'}{' '}
-            categoria
+            Insira os dados abaixo para efetuar a {isEditing ? 'atualização do' : 'criação de um'}{' '}
+            departamento
           </DialogDescription>
         </DialogHeader>
         <Separator />
@@ -99,19 +101,18 @@ const CategoryUpsertDialog = ({ open, onOpenChange, defaultValues }: CategoryUps
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nome da categoria" {...field} />
+                    <Input placeholder="Nome do departamento" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
-              name="daily_limit"
+              name="monthly_budget"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Limite diário</FormLabel>
+                  <FormLabel>Orçamento mensal</FormLabel>
                   <FormControl>
                     <MoneyInput
                       placeholder="R$ 0,00"
@@ -123,32 +124,12 @@ const CategoryUpsertDialog = ({ open, onOpenChange, defaultValues }: CategoryUps
                 </FormItem>
               )}
             />
-
-            <FormField
-              control={form.control}
-              name="monthly_limit"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Limite mensal</FormLabel>
-                  <FormControl>
-                    <MoneyInput
-                      placeholder="R$ 0,00"
-                      value={field.value}
-                      onValueChange={(value) => field.onChange(value)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <DialogFooter>
               <DialogClose asChild>
                 <Button variant="outline" type="button">
                   Cancelar
                 </Button>
               </DialogClose>
-
               <Button type="submit" disabled={isPending}>
                 {isPending && <Loader2Icon className="size-4 animate-spin" />}
                 {isEditing ? 'Atualizar' : 'Adicionar'}
@@ -161,4 +142,4 @@ const CategoryUpsertDialog = ({ open, onOpenChange, defaultValues }: CategoryUps
   )
 }
 
-export default CategoryUpsertDialog
+export default DepartmentUpsertDialog

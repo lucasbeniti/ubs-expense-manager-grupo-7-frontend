@@ -3,10 +3,10 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { formatCurrencyToBRL } from '@/lib/utils/currency'
 import { DeleteButton } from '@/components/shared/delete-button'
-import { departmentService } from '@/lib/services/department.service'
 import UpdateDepartmentButton from './update-department-button'
-import { IDepartment } from '@/lib/types/department'
 import { formatToBrazilianDatetime } from '@/lib/utils/date'
+import { IDepartment } from '../types'
+import { deleteDepartment } from '../api'
 
 export const departmentColumns: ColumnDef<IDepartment>[] = [
   {
@@ -37,11 +37,7 @@ export const departmentColumns: ColumnDef<IDepartment>[] = [
         <div className="flex items-center gap-2">
           <UpdateDepartmentButton department={department} />
 
-          <DeleteButton
-            id={department.id}
-            onDelete={departmentService.delete}
-            entityName="departamento"
-          />
+          <DeleteButton id={department.id} onDelete={deleteDepartment} entityName="departamento" />
         </div>
       )
     },

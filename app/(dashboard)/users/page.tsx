@@ -1,12 +1,12 @@
 import { Separator } from '@/components/ui/separator'
-import { userService } from '@/lib/services/user.service'
-import { departmentService } from '@/lib/services/department.service'
-import CreateUserButton from './_components/create-user-button'
-import UsersTable from './_components/users-table'
+import CreateUserButton from '../../../features/users/components/create-user-button'
+import UsersTable from '../../../features/users/components/users-table'
+import { getDepartments } from '@/features/departments/api'
+import { getUsers } from '@/features/users/api'
 
 const UsersPage = async () => {
-  const users = await userService.getAll()
-  const departments = await departmentService.getAll()
+  const users = await getUsers()
+  const departments = await getDepartments()
   const managers = users.filter((user) => user.role === 'manager')
 
   return (
