@@ -6,6 +6,7 @@ import { DeleteButton } from '@/components/shared/delete-button'
 import { departmentService } from '@/lib/services/department.service'
 import UpdateDepartmentButton from './update-department-button'
 import { IDepartment } from '@/lib/types/department'
+import { formatToBrazilianDatetime } from '@/lib/utils/date'
 
 export const departmentColumns: ColumnDef<IDepartment>[] = [
   {
@@ -17,6 +18,13 @@ export const departmentColumns: ColumnDef<IDepartment>[] = [
     header: 'Orçamento mensal',
     cell: ({ row }) => {
       return formatCurrencyToBRL(row.original.monthly_budget)
+    },
+  },
+  {
+    accessorKey: 'created_at',
+    header: 'Data de criação',
+    cell: ({ row }) => {
+      return formatToBrazilianDatetime(row.original.created_at)
     },
   },
   {
