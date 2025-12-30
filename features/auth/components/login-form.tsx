@@ -8,10 +8,10 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { loginSchema, LoginFormData } from '../schemas'
-import { useLogin } from '../hooks/use-login'
+import { useAuth } from '../hooks/use-login'
 
 export function LoginForm() {
-  const { signIn } = useLogin()
+  const { signIn } = useAuth()
 
   const {
     register,

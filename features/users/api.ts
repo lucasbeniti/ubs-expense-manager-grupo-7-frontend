@@ -1,4 +1,4 @@
-import { api } from '@/lib/utils/api'
+import { api } from '@/lib/http/api'
 import { IUser, CreateUserDTO, UpdateUserDTO } from './types'
 
 export const getUsers = async (): Promise<IUser[]> => {
