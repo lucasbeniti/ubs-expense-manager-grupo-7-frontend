@@ -7,6 +7,7 @@ import { USER_ROLE_LABELS } from '@/constants/user'
 import UpdateUserButton from './update-user-button'
 import { IDepartment } from '@/lib/types/department'
 import { IUser } from '@/lib/types/user'
+import { formatToBrazilianDatetime } from '@/lib/utils/date'
 
 export const userColumns = (departments: IDepartment[], managers: IUser[]): ColumnDef<IUser>[] => [
   {
@@ -29,6 +30,13 @@ export const userColumns = (departments: IDepartment[], managers: IUser[]): Colu
   {
     accessorKey: 'manager.name',
     header: 'Gestor',
+  },
+  {
+    accessorKey: 'created_at',
+    header: 'Data de criação',
+    cell: ({ row }) => {
+      return formatToBrazilianDatetime(row.original.created_at)
+    },
   },
   {
     id: 'actions',
