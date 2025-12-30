@@ -13,6 +13,7 @@ export interface IUser {
     id: string
     name: string
   } | null
+  created_at: string
 }
 
 export interface CreateUserDTO {
