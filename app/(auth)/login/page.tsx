@@ -12,6 +12,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { authService } from '@/lib/services/auth.service'
+import { setAuthToken } from '@/lib/actions/auth'
 
 const loginSchema = z.object({
   email: z.string().min(1, 'E-mail é obrigatório').email('E-mail inválido'),
@@ -38,7 +39,8 @@ export default function LoginPage() {
     try {
       const response = await authService.login(data)
 
-      localStorage.setItem('token', response.token)
+      await setAuthToken(response.token)
+
       router.push('/users')
 
       toast.success('Bem-vindo!')

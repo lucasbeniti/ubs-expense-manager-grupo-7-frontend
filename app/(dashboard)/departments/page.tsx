@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers'
 import { Separator } from '@/components/ui/separator'
 import { departmentService } from '@/lib/services/department.service'
 import { departmentColumns } from './_components/department-columns'
@@ -5,7 +6,10 @@ import { DataTable } from '@/components/ui/data-table'
 import CreateDepartmentButton from './_components/create-department-button'
 
 const DepartmentsPage = async () => {
-  const departments = await departmentService.getAll()
+  const cookieStore = await cookies()
+  const token = cookieStore.get('token')?.value
+
+  const departments = await departmentService.getAll(token)
 
   return (
     <div className="space-y-6 p-6">
