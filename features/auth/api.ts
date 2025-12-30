@@ -1,11 +1,11 @@
-import { api } from '@/lib/utils/api'
+import { api } from '@/lib/http/api'
 import { LoginPayload } from './types'
 
-export async function login(payload: LoginPayload) {
+export const login = async (payload: LoginPayload) => {
   const { data } = await api.post('/login', payload)
   return data.user
 }
 
-export async function logout() {
+export const logout = async () => {
   await api.post('/logout')
 }

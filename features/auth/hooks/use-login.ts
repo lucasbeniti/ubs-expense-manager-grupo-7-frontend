@@ -2,22 +2,31 @@
 
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { login } from '../api'
+import { login, logout } from '../api'
 import { LoginFormData } from '../schemas'
 
-export function useLogin() {
+export const useAuth = () => {
   const router = useRouter()
 
   const signIn = async (data: LoginFormData) => {
     try {
       await login(data)
-      router.push('/users')
       toast.success('Bem-vindo!')
+      router.push('/users')
     } catch {
       toast.error('E-mail ou senha inválidos')
       throw new Error('Login failed')
     }
   }
 
-  return { signIn }
+  const signOut = async () => {
+    try {
+      await logout()
+    } finally {
+      router.push('/login')
+      toast.success('Logout realizado')
+    }
+  }
+
+  return { signIn, signOut }
 }

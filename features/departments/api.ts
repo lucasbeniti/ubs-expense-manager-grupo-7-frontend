@@ -1,6 +1,6 @@
-import { api } from '@/lib/utils/api'
 import { IDepartment } from './types'
 import { DepartmentFormData } from './schema'
+import { api } from '@/lib/http/api'
 
 export const getDepartments = async (): Promise<IDepartment[]> => {
   const { data } = await api.get<IDepartment[]>('/departments')

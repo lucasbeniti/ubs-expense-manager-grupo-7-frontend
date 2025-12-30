@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { IBM_Plex_Sans } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'sonner'
 
-const inter = Inter({
+export const ibmPlex = IBM_Plex_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-sans',
 })
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export default function RootLayout({
       <Toaster richColors={true} position={'top-right'} />
 
       <html lang="en">
-        <body className={inter.variable}>{children}</body>
+        <body className={ibmPlex.variable}>{children}</body>
       </html>
     </>
   )
