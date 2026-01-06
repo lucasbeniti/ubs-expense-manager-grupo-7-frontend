@@ -37,7 +37,7 @@ import { IDepartment } from '@/features/departments/types'
 import { IUser } from '../types'
 import { UserFormData, userSchema } from '../schema'
 import { createUser, updateUser } from '../api'
-import { USER_ROLE_LABELS } from '../constants'
+import { USER_ROLE_STYLES } from '../constants'
 
 interface UserUpsertDialogProps {
   open: boolean
@@ -50,7 +50,7 @@ interface UserUpsertDialogProps {
     email: string
     role: 'employee' | 'manager' | 'finance'
     department_id: string
-    manager_id?: string
+    manager_id: string
   }
 }
 
@@ -69,8 +69,8 @@ const UserUpsertDialog = ({
       name: defaultValues?.name ?? '',
       email: defaultValues?.email ?? '',
       role: defaultValues?.role ?? 'employee',
-      department_id: defaultValues?.department_id ?? '',
-      manager_id: defaultValues?.manager_id ?? '',
+      department_id: defaultValues?.department_id ? String(defaultValues.department_id) : undefined,
+      manager_id: defaultValues?.manager_id ? String(defaultValues.manager_id) : undefined,
     },
   })
 
@@ -78,17 +78,13 @@ const UserUpsertDialog = ({
   const [isPending, startTransition] = useTransition()
 
   async function onSubmit(data: UserFormData) {
-    const payload = {
-      ...data,
-      manager_id: data.manager_id === 'none' ? undefined : data.manager_id,
-    }
     startTransition(async () => {
       try {
         if (isEditing) {
-          await updateUser(defaultValues!.id, payload)
+          await updateUser(defaultValues!.id, data)
           toast.success('Usuário atualizado com sucesso.')
         } else {
-          await createUser(payload)
+          await createUser(data)
           toast.success('Usuário criado com sucesso.')
         }
 
@@ -158,9 +154,9 @@ const UserUpsertDialog = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="employee">{USER_ROLE_LABELS.employee}</SelectItem>
-                      <SelectItem value="manager">{USER_ROLE_LABELS.manager}</SelectItem>
-                      <SelectItem value="finance">{USER_ROLE_LABELS.finance}</SelectItem>
+                      <SelectItem value="employee">{USER_ROLE_STYLES.employee.label}</SelectItem>
+                      <SelectItem value="manager">{USER_ROLE_STYLES.manager.label}</SelectItem>
+                      <SelectItem value="finance">{USER_ROLE_STYLES.finance.label}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -182,7 +178,7 @@ const UserUpsertDialog = ({
                     </FormControl>
                     <SelectContent>
                       {departments.map((department) => (
-                        <SelectItem key={department.id} value={department.id}>
+                        <SelectItem key={department.id} value={String(department.id)}>
                           {department.name}
                         </SelectItem>
                       ))}
@@ -206,10 +202,8 @@ const UserUpsertDialog = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="none">Nenhum</SelectItem>
-
                       {managers.map((manager) => (
-                        <SelectItem key={manager.id} value={manager.id}>
+                        <SelectItem key={manager.id} value={String(manager.id)}>
                           {manager.name}
                         </SelectItem>
                       ))}

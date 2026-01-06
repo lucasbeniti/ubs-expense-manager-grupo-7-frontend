@@ -1,4 +1,3 @@
-import { Separator } from '@/components/ui/separator'
 import { departmentColumns } from '../../../features/departments/components/department-columns'
 import { DataTable } from '@/components/ui/data-table'
 import CreateDepartmentButton from '../../../features/departments/components/create-department-button'
@@ -14,8 +13,6 @@ const DepartmentsPage = async () => {
 
         <CreateDepartmentButton />
       </div>
-
-      <Separator />
 
       <DataTable columns={departmentColumns} data={departments} />
     </div>

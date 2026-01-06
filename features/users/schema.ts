@@ -9,7 +9,9 @@ export const userSchema = z.object({
   department_id: z.string().trim().min(1, {
     error: 'Departamento é obrigatório',
   }),
-  manager_id: z.string().optional(),
+  manager_id: z.string().trim().min(1, {
+    error: 'Gestor é obrigatório',
+  }),
 })
 
 export type UserFormData = z.infer<typeof userSchema>
