@@ -1,4 +1,3 @@
-import { Separator } from '@/components/ui/separator'
 import CreateUserButton from '../../../features/users/components/create-user-button'
 import UsersTable from '../../../features/users/components/users-table'
 import { getDepartments } from '@/features/departments/api'
@@ -16,8 +15,6 @@ const UsersPage = async () => {
 
         <CreateUserButton departments={departments} managers={managers} />
       </div>
-
-      <Separator />
 
       <UsersTable users={users} departments={departments} managers={managers} />
     </div>
