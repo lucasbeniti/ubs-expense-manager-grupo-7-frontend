@@ -1,4 +1,3 @@
-import { Separator } from '@/components/ui/separator'
 import { DataTable } from '@/components/ui/data-table'
 import CreateCategoryButton from '../../../features/categories/components/create-category-button'
 import { categoryColumns } from '../../../features/categories/components/category-columns'
@@ -14,8 +13,6 @@ const CategoriesPage = async () => {
 
         <CreateCategoryButton />
       </div>
-
-      <Separator />
 
       <DataTable columns={categoryColumns} data={categories} />
     </div>

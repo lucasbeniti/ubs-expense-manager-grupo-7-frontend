@@ -2,8 +2,8 @@
 
 import { DataTable } from '@/components/ui/data-table'
 import { userColumns } from './user-columns'
-import { IDepartment } from '@/lib/types/department'
-import { IUser } from '@/lib/types/user'
+import { IDepartment } from '@/features/departments/types'
+import { IUser } from '../types'
 
 interface UsersTableProps {
   users: IUser[]

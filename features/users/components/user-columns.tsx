@@ -7,7 +7,8 @@ import { formatToBrazilianDatetime } from '@/lib/utils/date'
 import { IDepartment } from '@/features/departments/types'
 import { IUser } from '../types'
 import { deleteUser } from '../api'
-import { USER_ROLE_LABELS } from '../constants'
+import { USER_ROLE_STYLES } from '../constants'
+import { Badge } from '@/components/ui/badge'
 
 export const userColumns = (departments: IDepartment[], managers: IUser[]): ColumnDef<IUser>[] => [
   {
@@ -21,7 +22,16 @@ export const userColumns = (departments: IDepartment[], managers: IUser[]): Colu
   {
     accessorKey: 'role',
     header: 'Cargo',
-    cell: ({ row }) => USER_ROLE_LABELS[row.getValue('role') as string],
+    cell: ({ row }) => {
+      const role = row.getValue('role') as string
+      const roleConfig = USER_ROLE_STYLES[role]
+
+      return (
+        <Badge variant="outline" className={roleConfig.className}>
+          {roleConfig.label}
+        </Badge>
+      )
+    },
   },
   {
     accessorKey: 'department.name',
@@ -30,6 +40,11 @@ export const userColumns = (departments: IDepartment[], managers: IUser[]): Colu
   {
     accessorKey: 'manager.name',
     header: 'Gestor',
+    cell: ({ row }) => {
+      const managerName = row.original.manager?.name
+
+      return managerName ? managerName : 'N/A'
+    },
   },
   {
     accessorKey: 'created_at',
