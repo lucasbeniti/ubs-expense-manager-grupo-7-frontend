@@ -2,6 +2,7 @@
 
 import { AppSidebar } from '@/components/shared/app-sidebar'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import { DynamicBreadcrumb } from '@/components/shared/dynamic-breadcrumb'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,10 +10,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <AppSidebar />
 
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b">
-          <div className="flex items-center gap-2 px-4">
+        <header className="flex h-16 shrink-0 items-center justify-between border-b px-4">
+          <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
+            <DynamicBreadcrumb />
           </div>
+
+          <div id="header-actions" className="flex items-center gap-2"></div>
         </header>
 
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
