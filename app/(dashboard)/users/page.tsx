@@ -2,6 +2,7 @@ import CreateUserButton from '../../../features/users/components/create-user-but
 import UsersTable from '../../../features/users/components/users-table'
 import { getDepartments } from '@/features/departments/api'
 import { getUsers } from '@/features/users/api'
+import PageHeader from '@/components/shared/page-header'
 
 const UsersPage = async () => {
   const users = await getUsers()
@@ -9,15 +10,15 @@ const UsersPage = async () => {
   const managers = users.filter((user) => user.role === 'manager')
 
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl">Usuários</h1>
-
+    <>
+      <PageHeader>
         <CreateUserButton departments={departments} managers={managers} />
-      </div>
+      </PageHeader>
 
-      <UsersTable users={users} departments={departments} managers={managers} />
-    </div>
+      <div className="p-6">
+        <UsersTable users={users} departments={departments} managers={managers} />
+      </div>
+    </>
   )
 }
 
