@@ -2,15 +2,18 @@
 
 import { ColumnDef } from '@tanstack/react-table'
 import { DeleteButton } from '@/components/shared/delete-button'
-import UpdateUserButton from './update-user-button'
 import { formatToBrazilianDatetime } from '@/lib/utils/date'
 import { IDepartment } from '@/features/departments/types'
-import { IUser } from '../types'
-import { deleteUser } from '../api'
-import { USER_ROLE_STYLES } from '../constants'
+import { EMPLOYEE_ROLE_STYLES } from '../constants'
 import { Badge } from '@/components/ui/badge'
+import { IEmployee } from '../types'
+import UpdateEmployeeButton from './update-employee-button'
+import { deleteEmployee } from '../api'
 
-export const userColumns = (departments: IDepartment[], managers: IUser[]): ColumnDef<IUser>[] => [
+export const employeeColumns = (
+  departments: IDepartment[],
+  managers: IEmployee[]
+): ColumnDef<IEmployee>[] => [
   {
     accessorKey: 'name',
     header: 'Nome',
@@ -24,7 +27,7 @@ export const userColumns = (departments: IDepartment[], managers: IUser[]): Colu
     header: 'Cargo',
     cell: ({ row }) => {
       const role = row.getValue('role') as string
-      const roleConfig = USER_ROLE_STYLES[role]
+      const roleConfig = EMPLOYEE_ROLE_STYLES[role]
 
       return (
         <Badge variant="outline" className={roleConfig.className}>
@@ -57,13 +60,13 @@ export const userColumns = (departments: IDepartment[], managers: IUser[]): Colu
     id: 'actions',
     header: 'Ações',
     cell: ({ row }) => {
-      const user = row.original
+      const employee = row.original
 
       return (
         <>
-          <UpdateUserButton user={user} departments={departments} managers={managers} />
+          <UpdateEmployeeButton employee={employee} departments={departments} managers={managers} />
 
-          <DeleteButton id={user.id} onDelete={deleteUser} entityName="usuário" />
+          <DeleteButton id={employee.id} onDelete={deleteEmployee} entityName="usuário" />
         </>
       )
     },

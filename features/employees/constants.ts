@@ -1,4 +1,4 @@
-export const USER_ROLE_STYLES: Record<string, { label: string; className: string }> = {
+export const EMPLOYEE_ROLE_STYLES: Record<string, { label: string; className: string }> = {
   employee: {
     label: 'Funcionário',
     className: 'bg-blue-100 text-blue-800 border-blue-200',

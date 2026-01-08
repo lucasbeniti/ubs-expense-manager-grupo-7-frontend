@@ -34,58 +34,60 @@ import { useTransition } from 'react'
 import { toast } from 'sonner'
 import { Loader2Icon } from 'lucide-react'
 import { IDepartment } from '@/features/departments/types'
-import { IUser } from '../types'
-import { UserFormData, userSchema } from '../schema'
-import { createUser, updateUser } from '../api'
-import { USER_ROLE_STYLES } from '../constants'
+import { IEmployee } from '../types'
+import { EMPLOYEE_ROLE_STYLES } from '../constants'
+import { EmployeeFormData, employeeSchema } from '../schema'
+import { createEmployee, updateEmployee } from '../api'
 
-interface UserUpsertDialogProps {
+interface EmployeeUpsertDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   departments: IDepartment[]
-  managers: IUser[]
+  managers: IEmployee[]
   defaultValues?: {
     id: string
     name: string
     email: string
     role: 'employee' | 'manager' | 'finance'
-    department_id: string
-    manager_id: string
+    fk_department_id: string
+    fk_manager_id: string
   }
 }
 
-const UserUpsertDialog = ({
+const EmployeeUpsertDialog = ({
   open,
   onOpenChange,
   departments,
   managers,
   defaultValues,
-}: UserUpsertDialogProps) => {
+}: EmployeeUpsertDialogProps) => {
   const router = useRouter()
 
-  const form = useForm<UserFormData>({
-    resolver: zodResolver(userSchema),
+  const form = useForm<EmployeeFormData>({
+    resolver: zodResolver(employeeSchema),
     defaultValues: {
       name: defaultValues?.name ?? '',
       email: defaultValues?.email ?? '',
       role: defaultValues?.role ?? 'employee',
-      department_id: defaultValues?.department_id ? String(defaultValues.department_id) : undefined,
-      manager_id: defaultValues?.manager_id ? String(defaultValues.manager_id) : undefined,
+      fk_department_id: defaultValues?.fk_department_id
+        ? String(defaultValues.fk_department_id)
+        : undefined,
+      fk_manager_id: defaultValues?.fk_manager_id ? String(defaultValues.fk_manager_id) : undefined,
     },
   })
 
   const isEditing = !!defaultValues
   const [isPending, startTransition] = useTransition()
 
-  async function onSubmit(data: UserFormData) {
+  async function onSubmit(data: EmployeeFormData) {
     startTransition(async () => {
       try {
         if (isEditing) {
-          await updateUser(defaultValues!.id, data)
-          toast.success('Usuário atualizado com sucesso.')
+          await updateEmployee(defaultValues!.id, data)
+          toast.success('Funcionário atualizado com sucesso.')
         } else {
-          await createUser(data)
-          toast.success('Usuário criado com sucesso.')
+          await createEmployee(data)
+          toast.success('Funcionário criado com sucesso.')
         }
 
         form.reset()
@@ -154,9 +156,11 @@ const UserUpsertDialog = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="employee">{USER_ROLE_STYLES.employee.label}</SelectItem>
-                      <SelectItem value="manager">{USER_ROLE_STYLES.manager.label}</SelectItem>
-                      <SelectItem value="finance">{USER_ROLE_STYLES.finance.label}</SelectItem>
+                      <SelectItem value="employee">
+                        {EMPLOYEE_ROLE_STYLES.employee.label}
+                      </SelectItem>
+                      <SelectItem value="manager">{EMPLOYEE_ROLE_STYLES.manager.label}</SelectItem>
+                      <SelectItem value="finance">{EMPLOYEE_ROLE_STYLES.finance.label}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -166,7 +170,7 @@ const UserUpsertDialog = ({
 
             <FormField
               control={form.control}
-              name="department_id"
+              name="fk_department_id"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Departamento</FormLabel>
@@ -191,7 +195,7 @@ const UserUpsertDialog = ({
 
             <FormField
               control={form.control}
-              name="manager_id"
+              name="fk_manager_id"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Gestor</FormLabel>
@@ -232,4 +236,4 @@ const UserUpsertDialog = ({
   )
 }
 
-export default UserUpsertDialog
+export default EmployeeUpsertDialog

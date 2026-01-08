@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 const PUBLIC_ROUTES = ['/login']
-const AUTH_REDIRECT = '/users'
+const AUTH_REDIRECT = '/employees'
 
-export function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   // const { pathname } = request.nextUrl
 
   // const token = request.cookies.get('token')?.value

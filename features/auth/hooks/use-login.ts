@@ -12,7 +12,7 @@ export const useAuth = () => {
     try {
       await login(data)
       toast.success('Bem-vindo!')
-      router.push('/users')
+      router.push('/employees')
     } catch {
       toast.error('E-mail ou senha inválidos')
       throw new Error('Login failed')

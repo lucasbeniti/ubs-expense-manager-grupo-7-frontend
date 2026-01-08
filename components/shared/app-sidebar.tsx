@@ -1,7 +1,16 @@
 'use client'
 
 import * as React from 'react'
-import { Bell, Building2, ChartBarStacked, Command, FileSearch, Receipt, Users } from 'lucide-react'
+import {
+  Bell,
+  Building2,
+  ChartBarIcon,
+  ChartBarStacked,
+  Command,
+  FileSearch,
+  Receipt,
+  Users,
+} from 'lucide-react'
 
 import { NavItems } from '@/components/shared/nav-items'
 import { NavUser } from '@/components/shared/nav-user'
@@ -23,8 +32,8 @@ const data = {
   },
   items: [
     {
-      name: 'Usuários',
-      url: '/users',
+      name: 'Funcionários',
+      url: '/employees',
       icon: Users,
     },
     {
@@ -51,6 +60,11 @@ const data = {
       name: 'Auditoria de Despesas',
       url: '/expense-audit-logs',
       icon: FileSearch,
+    },
+    {
+      name: 'Relatórios',
+      url: '/reports',
+      icon: ChartBarIcon,
     },
   ],
 }

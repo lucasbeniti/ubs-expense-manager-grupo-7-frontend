@@ -3,26 +3,26 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { PlusIcon } from 'lucide-react'
-import UserUpsertDialog from './user-upsert-dialog'
+import EmployeeUpsertDialog from './employee-upsert-dialog'
 import { IDepartment } from '@/features/departments/types'
-import { IUser } from '../types'
+import { IEmployee } from '../types'
 
-interface CreateUserButtonProps {
+interface CreateEmployeeButtonProps {
   departments: IDepartment[]
-  managers: IUser[]
+  managers: IEmployee[]
 }
 
-const CreateUserButton = ({ departments, managers }: CreateUserButtonProps) => {
+const CreateEmployeeButton = ({ departments, managers }: CreateEmployeeButtonProps) => {
   const [open, setOpen] = useState(false)
 
   return (
     <>
       <Button className="rounded-full" onClick={() => setOpen(true)}>
         <PlusIcon className="size-4" />
-        Adicionar usuário
+        Adicionar funcionário
       </Button>
 
-      <UserUpsertDialog
+      <EmployeeUpsertDialog
         open={open}
         onOpenChange={setOpen}
         departments={departments}
@@ -32,4 +32,4 @@ const CreateUserButton = ({ departments, managers }: CreateUserButtonProps) => {
   )
 }
 
-export default CreateUserButton
+export default CreateEmployeeButton
