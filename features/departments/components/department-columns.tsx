@@ -3,12 +3,17 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { formatCurrencyToBRL } from '@/lib/utils/currency'
 import { DeleteButton } from '@/components/shared/delete-button'
-import UpdateDepartmentButton from './update-department-button'
 import { formatToBrazilianDatetime } from '@/lib/utils/date'
 import { IDepartment } from '../types'
 import { deleteDepartment } from '../api'
+import { UpdateButton } from '@/components/shared/update-button'
+import DepartmentUpsertDialog from './department-upsert-dialog'
 
 export const departmentColumns: ColumnDef<IDepartment>[] = [
+  {
+    accessorKey: 'department_id',
+    header: '#',
+  },
   {
     accessorKey: 'name',
     header: 'Nome',
@@ -16,28 +21,41 @@ export const departmentColumns: ColumnDef<IDepartment>[] = [
   {
     accessorKey: 'monthly_budget',
     header: 'Orçamento mensal',
-    cell: ({ row }) => {
-      return formatCurrencyToBRL(row.original.monthly_budget)
-    },
+    accessorFn: (row) => formatCurrencyToBRL(row.monthly_budget),
   },
   {
     accessorKey: 'created_at',
     header: 'Data de criação',
-    cell: ({ row }) => {
-      return formatToBrazilianDatetime(row.original.created_at)
-    },
+    accessorFn: (row) => formatToBrazilianDatetime(row.created_at),
   },
   {
     id: 'actions',
     header: 'Ações',
+    enableGlobalFilter: false,
     cell: ({ row }) => {
       const department = row.original
 
       return (
         <div className="flex items-center gap-2">
-          <UpdateDepartmentButton department={department} />
+          <UpdateButton entityName="departamento">
+            {(open, setOpen) => (
+              <DepartmentUpsertDialog
+                open={open}
+                onOpenChange={setOpen}
+                defaultValues={{
+                  id: department.department_id,
+                  name: department.name,
+                  monthly_budget: department.monthly_budget,
+                }}
+              />
+            )}
+          </UpdateButton>
 
-          <DeleteButton id={department.id} onDelete={deleteDepartment} entityName="departamento" />
+          <DeleteButton
+            id={department.department_id}
+            onDelete={deleteDepartment}
+            entityName="departamento"
+          />
         </div>
       )
     },

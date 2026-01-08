@@ -9,11 +9,7 @@ const CategoriesPage = async () => {
   return (
     <>
       <div className="p-6">
-        <DataTable
-          columns={categoryColumns}
-          data={categories}
-          createButton={<CreateCategoryButton />}
-        />
+        <DataTable columns={categoryColumns} data={categories} actions={<CreateCategoryButton />} />
       </div>
     </>
   )

@@ -12,7 +12,7 @@ const DepartmentsPage = async () => {
         <DataTable
           columns={departmentColumns}
           data={departments}
-          createButton={<CreateDepartmentButton />}
+          actions={<CreateDepartmentButton />}
         />
       </div>
     </>

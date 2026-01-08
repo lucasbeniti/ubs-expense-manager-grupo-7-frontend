@@ -2,13 +2,14 @@
 
 import {
   ColumnDef,
-  ColumnFiltersState,
   VisibilityState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   getFilteredRowModel,
   useReactTable,
+  FilterFn,
+  ColumnFiltersState,
 } from '@tanstack/react-table'
 import {
   Table,
@@ -32,7 +33,7 @@ import { ChevronDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } f
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  createButton: ReactNode
+  actions?: ReactNode
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -50,13 +51,32 @@ const getColumnLabel = (column: any): ReactNode => {
   return column.id
 }
 
+function normalize(value: unknown) {
+  return String(value)
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, '')
+    .replace(/[^\w]/g, '')
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const globalFilterFn: FilterFn<any> = (row, columnId, filterValue) => {
+  const value = row.getValue(columnId)
+
+  if (value == null) return false
+
+  return normalize(value).includes(normalize(filterValue))
+}
+
 export function DataTable<TData, TValue>({
   columns,
   data,
-  createButton,
+  actions,
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [globalFilter, setGlobalFilter] = useState('')
 
   const table = useReactTable({
     data,
@@ -64,11 +84,14 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    globalFilterFn,
     state: {
-      columnFilters,
       columnVisibility,
+      columnFilters,
+      globalFilter,
     },
   })
 
@@ -76,9 +99,9 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center gap-2 py-4">
         <Input
-          placeholder="Filtre pelo nome..."
-          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
+          placeholder="Busque por qualquer dado..."
+          value={globalFilter}
+          onChange={(e) => setGlobalFilter(e.target.value)}
           className="max-w-sm"
         />
         <DropdownMenu>
@@ -106,7 +129,7 @@ export function DataTable<TData, TValue>({
           </DropdownMenuContent>
         </DropdownMenu>
 
-        {createButton}
+        {actions}
       </div>
       <div className="rounded-md border">
         <Table>
@@ -144,8 +167,17 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-between py-4">
+        <span className="text-muted-foreground text-sm">
+          Exibindo {table.getFilteredRowModel().rows.length} de{' '}
+          {table.getCoreRowModel().rows.length}{' '}
+          {table.getCoreRowModel().rows.length > 1 ? 'registros' : 'registro'}
+        </span>
         <div className="flex items-center space-x-2">
+          <span className="text-muted-foreground mr-5 text-sm whitespace-nowrap">
+            Página {table.getState().pagination.pageIndex + 1} de {table.getPageCount()}
+          </span>
+
           <Button
             variant="outline"
             size="icon"

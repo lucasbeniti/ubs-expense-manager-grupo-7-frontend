@@ -38,6 +38,7 @@ import { IEmployee } from '../types'
 import { EMPLOYEE_ROLE_STYLES } from '../constants'
 import { EmployeeFormData, employeeSchema } from '../schema'
 import { createEmployee, updateEmployee } from '../api'
+import { formatCPF } from '@/lib/utils/cpf'
 
 interface EmployeeUpsertDialogProps {
   open: boolean
@@ -47,10 +48,11 @@ interface EmployeeUpsertDialogProps {
   defaultValues?: {
     id: string
     name: string
+    cpf: string
     email: string
     role: 'employee' | 'manager' | 'finance'
-    fk_department_id: string
-    fk_manager_id: string
+    department_id: string
+    manager_id: string
   }
 }
 
@@ -68,11 +70,10 @@ const EmployeeUpsertDialog = ({
     defaultValues: {
       name: defaultValues?.name ?? '',
       email: defaultValues?.email ?? '',
+      cpf: defaultValues?.cpf ?? '',
       role: defaultValues?.role ?? 'employee',
-      fk_department_id: defaultValues?.fk_department_id
-        ? String(defaultValues.fk_department_id)
-        : undefined,
-      fk_manager_id: defaultValues?.fk_manager_id ? String(defaultValues.fk_manager_id) : undefined,
+      department_id: defaultValues?.department_id ? String(defaultValues.department_id) : undefined,
+      manager_id: defaultValues?.manager_id ? String(defaultValues.manager_id) : undefined,
     },
   })
 
@@ -83,10 +84,10 @@ const EmployeeUpsertDialog = ({
     startTransition(async () => {
       try {
         if (isEditing) {
-          await updateEmployee(defaultValues!.id, data)
+          await updateEmployee(defaultValues!.id, { ...data, cpf: data.cpf.replace(/\D/g, '') })
           toast.success('Funcionário atualizado com sucesso.')
         } else {
-          await createEmployee(data)
+          await createEmployee({ ...data, cpf: data.cpf.replace(/\D/g, '') })
           toast.success('Funcionário criado com sucesso.')
         }
 
@@ -95,7 +96,7 @@ const EmployeeUpsertDialog = ({
         router.refresh()
       } catch (error) {
         console.error(error)
-        toast.error('Erro ao salvar usuário.')
+        toast.error('Erro ao salvar funcionário.')
       }
     })
   }
@@ -104,10 +105,10 @@ const EmployeeUpsertDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Atualizar' : 'Adicionar'} usuário</DialogTitle>
+          <DialogTitle>{isEditing ? 'Atualizar' : 'Adicionar'} funcionário</DialogTitle>
           <DialogDescription>
             Insira os dados abaixo para efetuar a {isEditing ? 'atualização do' : 'criação de um'}{' '}
-            usuário
+            funcionário
           </DialogDescription>
         </DialogHeader>
 
@@ -122,7 +123,7 @@ const EmployeeUpsertDialog = ({
                 <FormItem>
                   <FormLabel>Nome</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nome do usuário" {...field} />
+                    <Input placeholder="Nome do funcionário" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -136,7 +137,28 @@ const EmployeeUpsertDialog = ({
                 <FormItem>
                   <FormLabel>E-mail</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="E-mail do usuário" {...field} />
+                    <Input type="email" placeholder="E-mail do funcionário" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="cpf"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>CPF</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="CPF do funcionário"
+                      value={field.value ?? ''}
+                      onChange={(e) => {
+                        const formatted = formatCPF(e.target.value)
+                        field.onChange(formatted)
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -170,7 +192,7 @@ const EmployeeUpsertDialog = ({
 
             <FormField
               control={form.control}
-              name="fk_department_id"
+              name="department_id"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Departamento</FormLabel>
@@ -182,7 +204,10 @@ const EmployeeUpsertDialog = ({
                     </FormControl>
                     <SelectContent>
                       {departments.map((department) => (
-                        <SelectItem key={department.id} value={String(department.id)}>
+                        <SelectItem
+                          key={department.department_id}
+                          value={String(department.department_id)}
+                        >
                           {department.name}
                         </SelectItem>
                       ))}
@@ -195,7 +220,7 @@ const EmployeeUpsertDialog = ({
 
             <FormField
               control={form.control}
-              name="fk_manager_id"
+              name="manager_id"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Gestor</FormLabel>
@@ -207,7 +232,10 @@ const EmployeeUpsertDialog = ({
                     </FormControl>
                     <SelectContent>
                       {managers.map((manager) => (
-                        <SelectItem key={manager.id} value={String(manager.id)}>
+                        <SelectItem
+                          key={manager.department_id}
+                          value={String(manager.department_id)}
+                        >
                           {manager.name}
                         </SelectItem>
                       ))}

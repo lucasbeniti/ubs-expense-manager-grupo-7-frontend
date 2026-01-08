@@ -1,5 +1,5 @@
 export interface IDepartment {
-  id: string
+  department_id: string
   name: string
   monthly_budget: number
   created_at: string

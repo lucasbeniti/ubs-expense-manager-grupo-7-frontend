@@ -1,5 +1,5 @@
 export interface ICategory {
-  id: string
+  category_id: string
   name: string
   daily_limit: number
   monthly_limit: number

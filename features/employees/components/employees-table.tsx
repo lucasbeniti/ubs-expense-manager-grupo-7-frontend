@@ -17,7 +17,7 @@ export default function EmployeesTable({ employees, departments, managers }: Emp
     <DataTable
       data={employees}
       columns={employeeColumns(departments, managers)}
-      createButton={<CreateEmployeeButton departments={departments} managers={managers} />}
+      actions={<CreateEmployeeButton departments={departments} managers={managers} />}
     />
   )
 }
