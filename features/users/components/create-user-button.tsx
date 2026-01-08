@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { PlusIcon } from 'lucide-react'
 import UserUpsertDialog from './user-upsert-dialog'
-import { IDepartment } from '@/lib/types/department'
-import { IUser } from '@/lib/types/user'
+import { IDepartment } from '@/features/departments/types'
+import { IUser } from '../types'
 
 interface CreateUserButtonProps {
   departments: IDepartment[]
