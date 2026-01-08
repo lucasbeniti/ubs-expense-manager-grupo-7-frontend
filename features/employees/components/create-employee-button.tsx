@@ -17,9 +17,9 @@ const CreateEmployeeButton = ({ departments, managers }: CreateEmployeeButtonPro
 
   return (
     <>
-      <Button className="rounded-full" onClick={() => setOpen(true)}>
-        <PlusIcon className="size-4" />
+      <Button onClick={() => setOpen(true)}>
         Adicionar funcionário
+        <PlusIcon className="size-4" />
       </Button>
 
       <EmployeeUpsertDialog

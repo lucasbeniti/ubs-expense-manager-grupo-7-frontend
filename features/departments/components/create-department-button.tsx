@@ -10,9 +10,9 @@ const CreateDepartmentButton = () => {
 
   return (
     <>
-      <Button className="rounded-full" onClick={() => setOpen(true)}>
-        <PlusIcon className="size-4" />
+      <Button onClick={() => setOpen(true)}>
         Adicionar departamento
+        <PlusIcon className="size-4" />
       </Button>
 
       <DepartmentUpsertDialog open={open} onOpenChange={setOpen} />

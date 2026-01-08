@@ -15,8 +15,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <SidebarTrigger className="-ml-1" />
             <DynamicBreadcrumb />
           </div>
-
-          <div id="header-actions" className="flex items-center gap-2"></div>
         </header>
 
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>

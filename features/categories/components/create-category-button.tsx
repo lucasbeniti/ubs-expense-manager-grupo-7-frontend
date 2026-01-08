@@ -10,7 +10,7 @@ const CreateCategoryButton = () => {
 
   return (
     <>
-      <Button className="rounded-full" onClick={() => setOpen(true)}>
+      <Button onClick={() => setOpen(true)}>
         <PlusIcon className="size-4" />
         Adicionar categoria
       </Button>
