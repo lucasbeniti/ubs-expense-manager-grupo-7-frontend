@@ -4,16 +4,32 @@ import { IDepartment } from '../departments/types'
 
 export type ExpenseStatus = 'pending' | 'approved' | 'rejected'
 
+export interface ICategorySummary {
+  id: string
+  name: string
+}
+
+export interface IEmployeeSummary {
+  id: string
+  name: string
+  email: string
+}
+
+export interface IDepartmentSummary {
+  id: string
+  name: string
+}
+
 export interface IExpense {
   id: string
   amount: number
   date: string
   description: string
   category_id: string
-  category?: ICategory
+  category?: ICategorySummary
   employee_id: string
-  employee?: IEmployee
-  department?: IDepartment
+  employee?: IEmployeeSummary
+  department?: IDepartmentSummary
   status: ExpenseStatus
   receipt_url?: string
   created_at?: string

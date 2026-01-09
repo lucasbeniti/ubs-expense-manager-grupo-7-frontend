@@ -1,19 +1,28 @@
-export type EmployeeRole = 'employee' | 'manager' | 'finance'
+export type EmployeeRole = 'admin' | 'manager' | 'user'
+
+export interface IDepartmentSummary {
+  id: string
+  name: string
+}
+
+export interface IEmployeeSummary {
+  id: string
+  name: string
+}
 
 export interface IEmployee {
   id: string
   name: string
   email: string
   role: EmployeeRole
-  department: {
-    id: string
-    name: string
-  }
-  manager?: {
-    id: string
-    name: string
-  } | null
-  created_at: string
+
+  cpf?: string
+  phone?: string
+
+  department?: IDepartmentSummary
+  manager?: IEmployeeSummary | null
+
+  created_at?: string
 }
 
 export interface CreateEmployeeDTO {
@@ -29,5 +38,5 @@ export interface UpdateEmployeeDTO {
   email?: string
   role?: EmployeeRole
   fk_department_id?: string
-  fk_manager_id?: string | null
+  fk_manager_id?: string
 }
