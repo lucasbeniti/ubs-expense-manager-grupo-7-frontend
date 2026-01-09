@@ -5,12 +5,12 @@ export interface IDepartment {
   created_at: string
 }
 
-export interface CreateDepartmentDTO {
+export interface CreateDepartmentDto {
   name: string
   monthly_budget: number
 }
 
-export interface UpdateDepartmentDTO {
+export interface UpdateDepartmentDto {
   name?: string
   monthly_budget?: number
 }

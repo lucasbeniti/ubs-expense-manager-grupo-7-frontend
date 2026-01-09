@@ -1,5 +1,5 @@
 import { api } from '@/lib/http/api'
-import { ICategory, CreateCategoryDTO, UpdateCategoryDTO } from './types'
+import { ICategory, CreateCategoryDto, UpdateCategoryDto } from './types'
 
 export const getCategories = async (): Promise<ICategory[]> => {
   const { data } = await api.get<ICategory[]>('/categories')
@@ -11,14 +11,14 @@ export const getCategoryById = async (id: string): Promise<ICategory> => {
   return data
 }
 
-export const createCategory = async (payload: CreateCategoryDTO): Promise<ICategory> => {
+export const createCategory = async (payload: CreateCategoryDto): Promise<ICategory> => {
   const { data } = await api.post<ICategory>('/categories', payload)
   return data
 }
 
 export const updateCategory = async (
   id: string,
-  payload: UpdateCategoryDTO
+  payload: UpdateCategoryDto
 ): Promise<ICategory> => {
   const { data } = await api.put<ICategory>(`/categories/${id}`, payload)
   return data

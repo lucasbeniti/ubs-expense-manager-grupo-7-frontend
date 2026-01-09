@@ -2,7 +2,8 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Loader2Icon } from 'lucide-react'
+import { useState } from 'react'
+import { Loader2Icon, Eye, EyeOff } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'
@@ -12,6 +13,7 @@ import { useAuth } from '../hooks/use-login'
 
 export function LoginForm() {
   const { signIn } = useAuth()
+  const [showPassword, setShowPassword] = useState(false)
 
   const {
     register,
@@ -39,7 +41,20 @@ export function LoginForm() {
 
             <Field>
               <FieldLabel htmlFor="password">Senha</FieldLabel>
-              <Input id="password" type="password" {...register('password')} />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  {...register('password')}
+                />
+                <button
+                  type="button"
+                  className="text-muted-foreground absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
               {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
             </Field>
 

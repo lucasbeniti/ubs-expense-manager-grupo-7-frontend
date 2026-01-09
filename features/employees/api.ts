@@ -1,5 +1,5 @@
 import { api } from '@/lib/http/api'
-import { IEmployee, CreateEmployeeDTO, UpdateEmployeeDTO } from './types'
+import { IEmployee, CreateEmployeeDto, UpdateEmployeeDto } from './types'
 
 export const getEmployees = async (): Promise<IEmployee[]> => {
   const { data } = await api.get<IEmployee[]>('/employees')
@@ -11,14 +11,14 @@ export const getEmployeeById = async (id: string): Promise<IEmployee> => {
   return data
 }
 
-export const createEmployee = async (payload: CreateEmployeeDTO): Promise<IEmployee> => {
+export const createEmployee = async (payload: CreateEmployeeDto): Promise<IEmployee> => {
   const { data } = await api.post<IEmployee>('/employees', payload)
   return data
 }
 
 export const updateEmployee = async (
   id: string,
-  payload: UpdateEmployeeDTO
+  payload: UpdateEmployeeDto
 ): Promise<IEmployee> => {
   const { data } = await api.put<IEmployee>(`/employees/${id}`, payload)
   return data

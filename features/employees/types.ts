@@ -13,7 +13,7 @@ export interface IEmployee {
   created_at: string
 }
 
-export interface CreateEmployeeDTO {
+export interface CreateEmployeeDto {
   name: string
   email: string
   cpf: string
@@ -22,7 +22,7 @@ export interface CreateEmployeeDTO {
   manager_id?: string
 }
 
-export interface UpdateEmployeeDTO {
+export interface UpdateEmployeeDto {
   name?: string
   email?: string
   cpf?: string
