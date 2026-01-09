@@ -82,13 +82,19 @@ import { IDepartment } from '@/features/departments/types'
 import { EMPLOYEE_ROLE_STYLES } from '../constants'
 import { Badge } from '@/components/ui/badge'
 import { IEmployee } from '../types'
-import UpdateEmployeeButton from './update-employee-button'
 import { deleteEmployee } from '../api'
+import { formatCPF } from '@/lib/utils/cpf'
+import { UpdateButton } from '@/components/shared/update-button'
+import EmployeeUpsertDialog from './employee-upsert-dialog'
 
 export const employeeColumns = (
   departments: IDepartment[],
   managers: IEmployee[]
 ): ColumnDef<IEmployee>[] => [
+  {
+    accessorKey: 'employee_id',
+    header: '#',
+  },
   {
     accessorKey: 'name',
     header: 'Nome',
@@ -96,6 +102,11 @@ export const employeeColumns = (
   {
     accessorKey: 'email',
     header: 'Email',
+  },
+  {
+    accessorKey: 'cpf',
+    header: 'CPF',
+    cell: ({ row }) => formatCPF(row.original.cpf),
   },
   {
     accessorKey: 'role',
@@ -114,7 +125,7 @@ export const employeeColumns = (
     },
   },
   {
-    accessorKey: 'department.name',
+    accessorKey: 'department_name',
     header: 'Departamento',
     cell: ({ row }) => {
       const departmentName = row.original.department?.name
@@ -122,7 +133,7 @@ export const employeeColumns = (
     },
   },
   {
-    accessorKey: 'manager.name',
+    accessorKey: 'manager_name',
     header: 'Gestor',
     cell: ({ row }) => {
       const managerName = row.original.manager?.name
@@ -140,14 +151,37 @@ export const employeeColumns = (
   {
     id: 'actions',
     header: 'Ações',
+    enableGlobalFilter: false,
     cell: ({ row }) => {
       const employee = row.original
 
       return (
         <>
-          <UpdateEmployeeButton employee={employee} departments={departments} managers={managers} />
+          <UpdateButton entityName="funcionário">
+            {(open, setOpen) => (
+              <EmployeeUpsertDialog
+                open={open}
+                onOpenChange={setOpen}
+                departments={departments}
+                managers={managers}
+                defaultValues={{
+                  id: employee.employee_id,
+                  name: employee.name,
+                  cpf: formatCPF(employee.cpf),
+                  email: employee.email,
+                  role: employee.role,
+                  department_id: employee.department_id,
+                  manager_id: employee.manager_id ?? '',
+                }}
+              />
+            )}
+          </UpdateButton>
 
-          <DeleteButton id={employee.id} onDelete={deleteEmployee} entityName="usuário" />
+          <DeleteButton
+            id={employee.employee_id}
+            onDelete={deleteEmployee}
+            entityName="funcionário"
+          />
         </>
       )
     },

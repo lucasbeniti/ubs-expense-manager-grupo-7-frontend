@@ -3,4 +3,5 @@ export const BREADCRUMB_LABELS: Record<string, string> = {
   departments: 'Departamentos',
   employees: 'Funcionários',
   categories: 'Categorias',
+  expenses: 'Despesas',
 }

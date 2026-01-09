@@ -11,9 +11,10 @@ export interface IEmployeeSummary {
 }
 
 export interface IEmployee {
-  id: string
+  employee_id: string
   name: string
   email: string
+  cpf: string
   role: EmployeeRole
 
   cpf?: string
@@ -25,17 +26,19 @@ export interface IEmployee {
   created_at?: string
 }
 
-export interface CreateEmployeeDTO {
+export interface CreateEmployeeDto {
   name: string
   email: string
+  cpf: string
   role: EmployeeRole
-  fk_department_id: string
-  fk_manager_id?: string
+  department_id: string
+  manager_id?: string
 }
 
-export interface UpdateEmployeeDTO {
+export interface UpdateEmployeeDto {
   name?: string
   email?: string
+  cpf?: string
   role?: EmployeeRole
   fk_department_id?: string
   fk_manager_id?: string

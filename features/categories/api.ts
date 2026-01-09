@@ -29,7 +29,7 @@
 // }
 
 import { api } from '@/lib/http/api'
-import { ICategory, CreateCategoryDTO, UpdateCategoryDTO } from './types'
+import { ICategory, CreateCategoryDto, UpdateCategoryDto } from './types'
 
 // Dados mockados temporários
 let mockCategories: ICategory[] = [
@@ -64,7 +64,7 @@ export const createCategory = async (payload: CreateCategoryDTO): Promise<ICateg
 
 export const updateCategory = async (
   id: string,
-  payload: UpdateCategoryDTO
+  payload: UpdateCategoryDto
 ): Promise<ICategory> => {
   await new Promise(resolve => setTimeout(resolve, 500))
   const index = mockCategories.findIndex(cat => cat.id === id)

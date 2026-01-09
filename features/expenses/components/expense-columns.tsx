@@ -13,65 +13,6 @@ import UpdateExpenseButton from './update-expense-button'
 
 /* ======================================================
    COLUNAS DA TABELA
-====================================================== */
-export const expenseColumns: ColumnDef<IExpense>[] = [
-  {
-    id: 'select',
-    header: () => null, // sem checkbox no cabeçalho
-    cell: ({ row }) => (
-      <div className="flex justify-center">
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) =>
-            row.toggleSelected(!!value)
-          }
-          aria-label="Selecionar linha"
-        />
-      </div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  /* ===== NOME ===== */
-  {
-    accessorKey: 'employee.name',
-    header: 'Nome',
-    cell: ({ row }) => row.original.employee?.name || '-',
-  },
-
-  /* ===== DEPARTAMENTO ===== */
-  {
-    accessorKey: 'department.name',
-    header: 'Departamento',
-    cell: ({ row }) => row.original.department?.name || '-',
-  },
-
-  /* ===== CATEGORIA ===== */
-  {
-    accessorKey: 'category.name',
-    header: 'Categoria',
-    cell: ({ row }) => row.original.category?.name || '-',
-  },
-
-  /* ===== VALOR ===== */
-  {
-    accessorKey: 'amount',
-    header: 'Valor',
-    cell: ({ row }) => formatCurrencyToBRL(row.original.amount),
-  },
-
-  /* ===== DATA ===== */
-  {
-    accessorKey: 'date',
-    header: 'Data',
-    cell: ({ row }) =>
-      row.original.date
-        ? formatToBrazilianDate(row.original.date)
-        : '-',
-  },
-
-  /* ===== STATUS ===== */
   {
     accessorKey: 'status',
     header: 'Status',

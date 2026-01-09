@@ -1,36 +1,149 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💼 UBS Expense Manager – Frontend
 
-## Getting Started
+Frontend de um sistema corporativo de **controle de despesas** desenvolvido para resolver um problema real do **UBS**, que atualmente gerencia gastos de funcionários por meio de planilhas e e-mails, sem rastreabilidade adequada.
 
-First, run the development server:
+Este repositório documenta **exclusivamente o FRONTEND** da aplicação.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 📌 Visão Geral
+
+O sistema tem como objetivo oferecer uma interface moderna, intuitiva e robusta para o controle de despesas corporativas, permitindo maior transparência, governança e redução de riscos financeiros.
+
+O frontend é responsável por toda a **experiência do usuário**, incluindo autenticação, navegação, formulários, validações, visualização de dados e fluxos de aprovação.
+
+---
+
+## ❗ Problema que o Sistema Resolve
+
+Atualmente, o controle de despesas corporativas apresenta diversos riscos operacionais, como:
+
+- ❌ Falta de rastreabilidade dos gastos  
+- ❌ Controle manual via planilhas e e-mails  
+- ❌ Alto risco de **estouro de orçamento**  
+- ❌ Possibilidade de **reembolsos indevidos**  
+- ❌ Dificuldade na geração de relatórios confiáveis  
+
+O frontend foi projetado para atacar diretamente esses problemas por meio de uma interface clara, padronizada e orientada a fluxos de negócio.
+
+---
+
+## 🎯 Escopo do Frontend
+
+O frontend é responsável por:
+
+- Interface para **registro de despesas**
+- Aplicação visual de **limites por categoria**
+- Fluxo de **aprovação hierárquica** (funcionário → gestor → financeiro)
+- Alertas e feedbacks visuais para despesas fora das regras
+- Dashboards e relatórios por:
+  - Funcionário
+  - Equipe
+  - Departamento
+- Gestão de usuários, departamentos e categorias
+- Experiência consistente, acessível e responsiva
+
+---
+
+## 🧰 Tecnologias Utilizadas
+
+- **Next.js** – Framework React com App Router
+- **TypeScript** – Tipagem estática e maior segurança
+- **Tailwind CSS** – Estilização utilitária e consistente
+- **shadcn/ui** – Componentes acessíveis e reutilizáveis
+
+---
+
+## 🗂️ Estrutura de Pastas
+
+```txt
+app/
+├─ (auth)/                       # Rotas públicas de autenticação
+│  └─ login/
+│     └─ page.tsx                # Tela de login
+
+├─ (dashboard)/                  # Área protegida da aplicação
+│  ├─ layout.tsx                 # Layout base do dashboard (sidebar, header, etc.)
+│  ├─ users/
+│  │  └─ page.tsx                # Tela de gestão de usuários
+│  ├─ departments/
+│  │  └─ page.tsx                # Tela de gestão de departamentos
+│  └─ categories/
+│     └─ page.tsx                # Tela de gestão de categorias
+
+components/
+├─ shared/                       # Componentes reutilizáveis globais
+├─ ui/                           # Componentes base (shadcn/ui)
+
+features/                        # Organização por domínio de negócio
+├─ auth/
+├─ categories/
+├─ users/
+├─ departments/
+│  ├─ components/                # Componentes específicos da feature
+│  ├─ hooks/                     # Hooks isolados da feature
+│  ├─ api.ts                     # Camada de comunicação da feature
+│  ├─ schemas.ts                 # Schemas de validação
+│  ├─ types.ts                   # Tipos e interfaces
+
+hooks/                           # Hooks globais e reutilizáveis
+lib/                             # Utilitários, constantes e helpers
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🧩 Principais Features do Frontend
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 🔐 **Autenticação e controle de acesso por perfil**
+- 🧾 **Cadastro e visualização de despesas**
+- 🏷️ **Gerenciamento de categorias de gastos**
+- 🧑 **Gestão de usuários e departamentos**
+- ✅ **Fluxo visual de aprovação de despesas**
+- 🚨 **Alertas de inconsistência e validações em tempo real**
+- 📊 **Dashboards e relatórios interativos**
+- 🎨 **UI consistente, moderna e responsiva**
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧠 Padrões e Arquitetura
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Este projeto adota padrões focados em **escalabilidade e manutenibilidade**, garantindo clareza de responsabilidades e facilidade de evolução.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📦 Feature-Based Architecture
 
-## Deploy on Vercel
+- Código organizado por **domínio de negócio**
+- Cada feature é **isolada e independente**, reduzindo acoplamento
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🧩 Separação de Responsabilidades
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `components`: componentes de UI reutilizáveis
+- `hooks`: lógica de estado e comportamento reutilizável
+- `schemas`: validações e contratos de dados
+- `types`: tipagem centralizada e compartilhada
+
+### 🧪 Tipagem Forte
+
+- Uso extensivo de **TypeScript**
+- Evita tipos genéricos como `any` ou `unknown`
+- Maior segurança, previsibilidade
+
+---
+
+## ▶️ Como Rodar o Projeto Localmente
+
+### Pré-requisitos
+
+- **Node.js** (versão LTS recomendada)
+- Gerenciador de pacotes (**npm**, **yarn** ou **pnpm**)
+
+### Passos
+
+```bash
+# Instalar dependências
+npm install
+
+# Rodar o projeto em ambiente de desenvolvimento
+npm run dev
+
+```

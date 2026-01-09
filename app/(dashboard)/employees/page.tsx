@@ -1,8 +1,6 @@
 import { getDepartments } from '@/features/departments/api'
-import PageHeader from '@/components/shared/page-header'
 import { getEmployees } from '@/features/employees/api'
 import EmployeesTable from '@/features/employees/components/employees-table'
-import CreateEmployeeButton from '@/features/employees/components/create-employee-button'
 
 const EmployeesPage = async () => {
   const employees = await getEmployees()
@@ -11,10 +9,6 @@ const EmployeesPage = async () => {
 
   return (
     <>
-      <PageHeader>
-        <CreateEmployeeButton departments={departments} managers={managers} />
-      </PageHeader>
-
       <div className="p-6">
         <EmployeesTable employees={employees} departments={departments} managers={managers} />
       </div>

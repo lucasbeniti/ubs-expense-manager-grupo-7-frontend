@@ -53,7 +53,7 @@
 // }
 
 import { api } from '@/lib/http/api'
-import { IEmployee, CreateEmployeeDTO, UpdateEmployeeDTO } from './types'
+import { IEmployee, CreateEmployeeDto, UpdateEmployeeDto } from './types'
 
 // Dados mockados temporários
 let mockEmployees: IEmployee[] = [
@@ -123,7 +123,7 @@ export const createEmployee = async (payload: CreateEmployeeDTO): Promise<IEmplo
 
 export const updateEmployee = async (
   id: string,
-  payload: UpdateEmployeeDTO
+  payload: UpdateEmployeeDto
 ): Promise<IEmployee> => {
   await new Promise(resolve => setTimeout(resolve, 500))
   const index = mockEmployees.findIndex(emp => emp.id === id)
