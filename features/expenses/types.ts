@@ -1,34 +1,56 @@
-export type ExpenseStatus = 'pending' | 'manager_approved' | 'finance_approved' | 'rejected'
+import { ICategory } from '../categories/types'
+import { IEmployee } from '../employees/types'
+import { IDepartment } from '../departments/types'
+
+export type ExpenseStatus = 'pending' | 'approved' | 'rejected'
+
+export interface ICategorySummary {
+  id: string
+  name: string
+}
+
+export interface IEmployeeSummary {
+  id: string
+  name: string
+  email: string
+}
+
+export interface IDepartmentSummary {
+  id: string
+  name: string
+}
 
 export interface IExpense {
-  expense_id: string
-  description: string
+  id: string
+  amount: number
   date: string
+  description: string
+  category_id: string
+  category?: ICategorySummary
+  employee_id: string
+  employee?: IEmployeeSummary
+  department?: IDepartmentSummary
   status: ExpenseStatus
-  amount: number
-  currency_id: string
-  employee_id: string
-  employee_name: string
-  category_id: string
-  category_name: string
-  created_at: string
-  receipt_url: string
+  receipt_url?: string
+  created_at?: string
 }
 
-export interface CreateExpenseDto {
-  description: string
+export interface CreateExpenseDTO {
+  amount: number
   date: string
-  amount: number
-  currency_id: string
-  employee_id: string
+  description: string
   category_id: string
+  employee_id: string
+  status: ExpenseStatus
+  receipt_url?: string
 }
 
-export interface UpdateExpenseDto {
-  description?: string
-  date?: string
+export interface UpdateExpenseDTO {
   amount?: number
-  currency_id?: string
-  employee_id?: string
+  date?: string
+  description?: string
   category_id?: string
+  employee_id?: string
+  status?: ExpenseStatus
+  receipt_url?: string
 }

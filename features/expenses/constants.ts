@@ -1,18 +1,25 @@
-export const EXPENSE_STATUS_STYLES: Record<string, { label: string; className: string }> = {
+import { ExpenseStatus } from './types'
+
+export const EXPENSE_STATUS_STYLES: Record<
+  ExpenseStatus,
+  { label: string; className: string }
+> = {
   pending: {
     label: 'Pendente',
-    className: 'bg-blue-100 text-blue-800 border border-blue-200',
+    className: 'bg-yellow-100 text-yellow-800 border-yellow-300',
   },
-  manager_approved: {
-    label: 'Aprovado pelo Gestor',
-    className: 'bg-purple-100 text-purple-800 border border-purple-200',
-  },
-  finance_approved: {
-    label: 'Aprovado pelo Financeiro',
-    className: 'bg-green-100 text-green-800 border border-green-200',
+  approved: {
+    label: 'Aprovado',
+    className: 'bg-green-100 text-green-800 border-green-300',
   },
   rejected: {
     label: 'Rejeitado',
-    className: 'bg-red-100 text-red-800 border border-red-200',
+    className: 'bg-red-100 text-red-800 border-red-300',
   },
 }
+
+export const EXPENSE_STATUS_OPTIONS = [
+  { value: 'pending', label: 'Pendente' },
+  { value: 'approved', label: 'Aprovado' },
+  { value: 'rejected', label: 'Rejeitado' },
+] as const

@@ -1,24 +1,24 @@
-import { getCategories } from '@/features/categories/api'
-import { getCurrencies } from '@/features/currencies/api'
-import { getEmployees } from '@/features/employees/api'
+import { DataTable } from '@/components/ui/data-table'
+import CreateExpenseButton from '@/features/expenses/components/create-expense-button'
+import { expenseColumns } from '@/features/expenses/components/expense-columns'
 import { getExpenses } from '@/features/expenses/api'
-import ExpensesTable from '@/features/expenses/components/expenses-table'
+import { getCategories } from '@/features/categories/api'
+import { getEmployees } from '@/features/employees/api'
+import PageHeader from '@/components/shared/page-header'
 
 const ExpensesPage = async () => {
   const expenses = await getExpenses()
-  const currencies = await getCurrencies()
-  const employees = await getEmployees()
   const categories = await getCategories()
+  const employees = await getEmployees()
 
   return (
     <>
+      <PageHeader>
+        <CreateExpenseButton categories={categories} employees={employees} />
+      </PageHeader>
+
       <div className="p-6">
-        <ExpensesTable
-          expenses={expenses}
-          employees={employees}
-          categories={categories}
-          currencies={currencies}
-        />
+        <DataTable columns={expenseColumns} data={expenses} />
       </div>
     </>
   )

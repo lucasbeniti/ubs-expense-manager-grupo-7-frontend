@@ -1,4 +1,14 @@
-export type EmployeeRole = 'employee' | 'manager' | 'finance'
+export type EmployeeRole = 'admin' | 'manager' | 'user'
+
+export interface IDepartmentSummary {
+  id: string
+  name: string
+}
+
+export interface IEmployeeSummary {
+  id: string
+  name: string
+}
 
 export interface IEmployee {
   employee_id: string
@@ -6,11 +16,14 @@ export interface IEmployee {
   email: string
   cpf: string
   role: EmployeeRole
-  department_id: string
-  department_name: string
-  manager_id?: string
-  manager_name?: string
-  created_at: string
+
+  cpf?: string
+  phone?: string
+
+  department?: IDepartmentSummary
+  manager?: IEmployeeSummary | null
+
+  created_at?: string
 }
 
 export interface CreateEmployeeDto {
@@ -27,6 +40,6 @@ export interface UpdateEmployeeDto {
   email?: string
   cpf?: string
   role?: EmployeeRole
-  department_id?: string
-  manager_id?: string | null
+  fk_department_id?: string
+  fk_manager_id?: string
 }
