@@ -232,10 +232,7 @@ const EmployeeUpsertDialog = ({
                     </FormControl>
                     <SelectContent>
                       {managers.map((manager) => (
-                        <SelectItem
-                          key={manager.department_id}
-                          value={String(manager.department_id)}
-                        >
+                        <SelectItem key={manager.employee_id} value={String(manager.employee_id)}>
                           {manager.name}
                         </SelectItem>
                       ))}

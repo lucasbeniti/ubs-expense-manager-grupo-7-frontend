@@ -24,7 +24,7 @@ export default function ExpensesTable({
   return (
     <DataTable
       data={expenses}
-      columns={expenseColumns(currencies, categories, employees)}
+      columns={expenseColumns}
       actions={
         <CreateExpenseButton
           categories={categories}

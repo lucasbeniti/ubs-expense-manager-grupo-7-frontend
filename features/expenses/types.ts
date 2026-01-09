@@ -23,12 +23,3 @@ export interface CreateExpenseDto {
   employee_id: string
   category_id: string
 }
-
-export interface UpdateExpenseDto {
-  description?: string
-  date?: string
-  amount?: number
-  currency_id?: string
-  employee_id?: string
-  category_id?: string
-}

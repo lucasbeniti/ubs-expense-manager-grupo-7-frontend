@@ -7,15 +7,13 @@ const DepartmentsPage = async () => {
   const departments = await getDepartments()
 
   return (
-    <>
-      <div className="p-6">
-        <DataTable
-          columns={departmentColumns}
-          data={departments}
-          actions={<CreateDepartmentButton />}
-        />
-      </div>
-    </>
+    <div className="p-6">
+      <DataTable
+        columns={departmentColumns}
+        data={departments}
+        actions={<CreateDepartmentButton />}
+      />
+    </div>
   )
 }
 

@@ -4,21 +4,12 @@ import { ColumnDef } from '@tanstack/react-table'
 import { formatToBrazilianDate, formatToBrazilianDatetime } from '@/lib/utils/date'
 import { formatCurrencyToBRL } from '@/lib/utils/currency'
 import { IExpense } from '../types'
-import { ICurrency } from '@/features/currencies/types'
-import { ICategory } from '@/features/categories/types'
-import { IEmployee } from '@/features/employees/types'
 import { UpdateButton } from '@/components/shared/update-button'
-import ExpenseUpsertDialog from './expense-upsert-dialog'
-import { DeleteButton } from '@/components/shared/delete-button'
-import { deleteExpense } from '../api'
 import { Badge } from '@/components/ui/badge'
 import { EXPENSE_STATUS_STYLES } from '../constants'
+import ExpenseUpdateStatusDialog from './expense-update-status-dialog'
 
-export const expenseColumns = (
-  currencies: ICurrency[],
-  categories: ICategory[],
-  employees: IEmployee[]
-): ColumnDef<IExpense>[] => [
+export const expenseColumns: ColumnDef<IExpense>[] = [
   {
     accessorKey: 'expense_id',
     header: '#',
@@ -72,31 +63,11 @@ export const expenseColumns = (
       const expense = row.original
 
       return (
-        <>
-          <UpdateButton entityName="despesa">
-            {(open, setOpen) => (
-              <ExpenseUpsertDialog
-                open={open}
-                onOpenChange={setOpen}
-                currencies={currencies}
-                categories={categories}
-                employees={employees}
-                defaultValues={{
-                  id: expense.expense_id,
-                  description: expense.description,
-                  date: expense.date,
-                  amount: expense.amount,
-                  category_id: expense.category_id,
-                  currency_id: expense.currency_id,
-                  employee_id: expense.employee_id,
-                  receipt_url: expense.receipt_url,
-                }}
-              />
-            )}
-          </UpdateButton>
-
-          <DeleteButton id={expense.expense_id} onDelete={deleteExpense} entityName="despesa" />
-        </>
+        <UpdateButton entityName="despesa">
+          {(open, setOpen) => (
+            <ExpenseUpdateStatusDialog expense={expense} open={open} onOpenChange={setOpen} />
+          )}
+        </UpdateButton>
       )
     },
   },

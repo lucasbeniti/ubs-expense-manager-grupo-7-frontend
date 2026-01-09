@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
 import { toast } from 'sonner'
-import { CalendarIcon, Loader2Icon } from 'lucide-react'
+import { Loader2Icon } from 'lucide-react'
 import {
   Dialog,
   DialogContent,
@@ -28,7 +28,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { MoneyInput } from '@/components/shared/money-input'
 import { ExpenseFormData, expenseSchema } from '../schema'
-import { createExpense, updateExpense } from '../api'
+import { createExpense } from '../api'
 import { ICurrency } from '@/features/currencies/types'
 import { ICategory } from '@/features/categories/types'
 import { IEmployee } from '@/features/employees/types'
@@ -39,53 +39,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { cn } from '@/lib/utils'
-import { format } from 'date-fns'
-import { Calendar } from '@/components/ui/calendar'
-import { ptBR } from 'date-fns/locale'
+import { DatePicker } from '@/components/shared/date-picker'
 
-interface ExpenseUpsertDialogProps {
+interface ExpenseCreateDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  defaultValues?: {
-    id: string
-    description: string
-    date: string
-    amount: number
-    currency_id: string
-    employee_id: string
-    category_id: string
-    receipt_url: string
-  }
   currencies: ICurrency[]
   categories: ICategory[]
   employees: IEmployee[]
 }
 
-const ExpenseUpsertDialog = ({
+const ExpenseCreateDialog = ({
   open,
   onOpenChange,
-  defaultValues,
   currencies,
   categories,
   employees,
-}: ExpenseUpsertDialogProps) => {
+}: ExpenseCreateDialogProps) => {
   const router = useRouter()
-  const isEditing = !!defaultValues
+
   const [isPending, startTransition] = useTransition()
 
   const form = useForm<ExpenseFormData>({
     resolver: zodResolver(expenseSchema),
-    defaultValues: {
-      description: defaultValues?.description ?? '',
-      date: defaultValues?.date ? new Date(defaultValues.date) : undefined,
-      amount: defaultValues?.amount ?? 0,
-      currency_id: defaultValues?.currency_id ?? '',
-      employee_id: defaultValues?.employee_id ?? '',
-      category_id: defaultValues?.category_id ?? '',
-      receipt_url: defaultValues?.receipt_url ?? '',
-    },
   })
 
   function onSubmit(data: ExpenseFormData) {
@@ -96,13 +72,8 @@ const ExpenseUpsertDialog = ({
           date: data.date instanceof Date ? data.date.toISOString().split('T')[0] : data.date,
         }
 
-        if (isEditing) {
-          await updateExpense(defaultValues!.id, payload)
-          toast.success('Despesa atualizada com sucesso.')
-        } else {
-          await createExpense(payload)
-          toast.success('Despesa criada com sucesso.')
-        }
+        await createExpense(payload)
+        toast.success('Despesa criada com sucesso.')
 
         form.reset()
         onOpenChange(false)
@@ -118,10 +89,8 @@ const ExpenseUpsertDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Atualizar despesa' : 'Adicionar despesa'}</DialogTitle>
-          <DialogDescription>
-            Preencha os dados abaixo para {isEditing ? 'atualizar a' : 'criar uma'} despesa.
-          </DialogDescription>
+          <DialogTitle>Adicionar despesa</DialogTitle>
+          <DialogDescription>Preencha os dados abaixo para criar uma despesa.</DialogDescription>
         </DialogHeader>
 
         <Separator />
@@ -146,34 +115,10 @@ const ExpenseUpsertDialog = ({
               control={form.control}
               name="date"
               render={({ field }) => (
-                <FormItem className="flex flex-col">
+                <FormItem>
                   <FormLabel>Data</FormLabel>
 
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            'w-full justify-start text-left font-normal',
-                            !field.value && 'text-muted-foreground'
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {field.value ? format(field.value, 'dd/MM/yyyy') : 'Selecione uma data'}
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        locale={ptBR}
-                      />
-                    </PopoverContent>
-                  </Popover>
+                  <DatePicker value={field.value} onChange={field.onChange} className="w-full" />
 
                   <FormMessage />
                 </FormItem>
@@ -296,7 +241,7 @@ const ExpenseUpsertDialog = ({
 
               <Button type="submit" disabled={isPending}>
                 {isPending && <Loader2Icon className="mr-2 size-4 animate-spin" />}
-                {isEditing ? 'Atualizar' : 'Adicionar'}
+                Adicionar
               </Button>
             </DialogFooter>
           </form>
@@ -306,4 +251,4 @@ const ExpenseUpsertDialog = ({
   )
 }
 
-export default ExpenseUpsertDialog
+export default ExpenseCreateDialog

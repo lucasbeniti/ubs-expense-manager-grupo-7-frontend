@@ -7,11 +7,9 @@ const CategoriesPage = async () => {
   const categories = await getCategories()
 
   return (
-    <>
-      <div className="p-6">
-        <DataTable columns={categoryColumns} data={categories} actions={<CreateCategoryButton />} />
-      </div>
-    </>
+    <div className="p-6">
+      <DataTable columns={categoryColumns} data={categories} actions={<CreateCategoryButton />} />
+    </div>
   )
 }
 

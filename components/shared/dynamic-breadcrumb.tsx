@@ -8,7 +8,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { BREADCRUMB_LABELS } from '@/lib/constants/breadcrumbs'
+import { BREADCRUMB_LABELS } from '@/constants/breadcrumbs'
 
 export function DynamicBreadcrumb() {
   const pathname = usePathname()

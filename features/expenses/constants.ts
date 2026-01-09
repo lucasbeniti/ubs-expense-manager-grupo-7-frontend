@@ -16,3 +16,24 @@ export const EXPENSE_STATUS_STYLES: Record<string, { label: string; className: s
     className: 'bg-red-100 text-red-800 border border-red-200',
   },
 }
+
+import { ExpenseStatus } from './types'
+
+export const EXPENSE_STATUS_FLOW: Record<
+  ExpenseStatus,
+  {
+    next?: ExpenseStatus
+    reject?: ExpenseStatus
+  }
+> = {
+  pending: {
+    next: 'manager_approved',
+    reject: 'rejected',
+  },
+  manager_approved: {
+    next: 'finance_approved',
+    reject: 'rejected',
+  },
+  finance_approved: {},
+  rejected: {},
+}
