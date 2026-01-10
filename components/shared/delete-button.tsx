@@ -65,8 +65,8 @@ export function DeleteButton({ id, onDelete, entityName = 'item' }: DeleteButton
         open={open}
         onOpenChange={setOpen}
         onConfirm={handleDelete}
-        title={`Excluir ${entityName}?`}
-        description={`Tem certeza que deseja excluir ${entityName === 'categoria' ? 'esta' : 'este'} ${entityName}? Esta ação não pode ser desfeita.`}
+        title={`Deletar ${entityName}?`}
+        description={`Tem certeza que deseja deletar ${entityName === 'categoria' ? 'esta' : 'este'} ${entityName}? Esta ação não pode ser desfeita.`}
         isLoading={isLoading}
       />
     </>
