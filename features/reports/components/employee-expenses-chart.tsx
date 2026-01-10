@@ -16,6 +16,7 @@ import { format } from 'date-fns'
 import { getEmployeeExpenses } from '../api'
 import { mapEmployeeExpensesToChart } from '../mapper'
 import { Loader2Icon } from 'lucide-react'
+import { formatCurrencyToBRL } from '@/lib/utils/currency'
 
 const chartConfig = {
   total: {
@@ -86,7 +87,7 @@ export const EmployeeExpensesChart = ({ expenses }: EmployeeExpensesChartProps) 
 
       <CardContent className="h-[280px]">
         <ChartContainer config={chartConfig} className="h-full w-full">
-          <BarChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
+          <BarChart data={chartData} margin={{ top: -10, right: 0, left: 0, bottom: -10 }}>
             <CartesianGrid vertical={false} />
 
             <XAxis dataKey="name" tickLine={false} axisLine={false} />
@@ -95,18 +96,14 @@ export const EmployeeExpensesChart = ({ expenses }: EmployeeExpensesChartProps) 
               width={90}
               tickLine={false}
               axisLine={false}
-              tickFormatter={(v) => `R$ ${v.toLocaleString('pt-BR')}`}
+              tickFormatter={(value) => formatCurrencyToBRL(value)}
             />
 
             <ChartTooltip
               cursor={false}
               content={
                 <ChartTooltipContent
-                  formatter={(value) =>
-                    `Gasto: R$ ${Number(value).toLocaleString('pt-BR', {
-                      minimumFractionDigits: 2,
-                    })}`
-                  }
+                  formatter={(value) => `Gasto: ${formatCurrencyToBRL(Number(value))}`}
                 />
               }
             />
