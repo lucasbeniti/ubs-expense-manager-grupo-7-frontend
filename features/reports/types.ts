@@ -9,12 +9,18 @@ export interface CategoryExpenseChartItem {
   key: string
 }
 
+export interface DepartmentBudgetComparativeChartItem {
+  name: string
+  used: number
+  remaining: number
+}
+
 export interface EmployeeExpenseReportDto {
-  employeeId: number
-  employeeName: string
-  totalAmount: number
+  employee_id: number
+  employee_name: string
+  total_amount: number
   expenses: {
-    expenseId: number
+    expense_id: number
     date: string
     description: string
     amount: number
@@ -24,5 +30,12 @@ export interface EmployeeExpenseReportDto {
 export interface CategoryExpenseReportDto {
   category_id: string
   category_name: string
+  total: number
+}
+
+export interface DepartmentBudgetComparativeReportDto {
+  department_id: string
+  department_name: string
+  monthly_budget: number
   total: number
 }

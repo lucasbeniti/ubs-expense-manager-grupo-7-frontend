@@ -15,6 +15,7 @@ import { DatePicker } from '@/components/shared/date-picker'
 import { format } from 'date-fns'
 import { getEmployeeExpenses } from '../api'
 import { mapEmployeeExpensesToChart } from '../mapper'
+import { Loader2Icon } from 'lucide-react'
 
 const chartConfig = {
   total: {
@@ -76,7 +77,8 @@ export const EmployeeExpensesChart = ({ expenses }: EmployeeExpensesChartProps) 
             <DatePicker value={endDate} onChange={setEndDate} placeholder="Data final" />
 
             <Button size="sm" onClick={handleFilter} disabled={loading}>
-              {loading ? 'Filtrando...' : 'Filtrar'}
+              {loading && <Loader2Icon className="animate-spin" />}
+              Filtrar
             </Button>
           </div>
         </div>

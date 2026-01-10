@@ -1,9 +1,7 @@
 'use client'
 
 import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-
 import {
   ChartContainer,
   ChartLegend,
@@ -12,44 +10,53 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from '@/components/ui/chart'
+import { DepartmentBudgetComparativeChartItem } from '../types'
+import { formatCurrencyToBRL } from '@/lib/utils/currency'
 
-const chartData = [
-  { department: 'TI', used: 62000, remaining: 18000 },
-  { department: 'Financeiro', used: 45000, remaining: 15000 },
-  { department: 'Operações', used: 72000, remaining: 8000 },
-  { department: 'Marketing', used: 38000, remaining: 22000 },
-]
+interface Props {
+  comparative: DepartmentBudgetComparativeChartItem[]
+}
 
-const chartConfig = {
-  used: {
-    label: 'Usado',
-    color: 'var(--chart-1)',
-  },
-  remaining: {
-    label: 'Disponível',
-    color: 'var(--chart-2)',
-  },
-} satisfies ChartConfig
+export const DepartmentBudgetComparativeChart = ({ comparative }: Props) => {
+  const chartData = comparative.map((item) => ({
+    name: item.name,
+    used: item.used,
+    remaining: item.remaining,
+  }))
 
-export const DepartmentBudgetComparativeChart = () => {
+  const chartConfig: ChartConfig = {
+    used: {
+      label: 'Usado',
+      color: 'var(--chart-1)',
+    },
+    remaining: {
+      label: 'Disponível',
+      color: 'var(--chart-2)',
+    },
+  }
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Orçamento por departamento</CardTitle>
-        <CardDescription>Usado × disponível</CardDescription>
+        <CardDescription>Usado × Disponível</CardDescription>
       </CardHeader>
 
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+          <BarChart data={chartData}>
             <CartesianGrid vertical={false} />
 
-            <XAxis dataKey="department" tickLine={false} tickMargin={10} axisLine={false} />
+            <XAxis dataKey="name" tickLine={false} tickMargin={10} axisLine={false} />
 
             <ChartTooltip
               content={
                 <ChartTooltipContent
-                  formatter={(value) => `R$ ${Number(value).toLocaleString('pt-BR')}`}
+                  formatter={(value, name) => {
+                    const label = name === 'used' ? 'Usado: ' : 'Restante: '
+
+                    return [label, formatCurrencyToBRL(Number(value))]
+                  }}
                 />
               }
             />
