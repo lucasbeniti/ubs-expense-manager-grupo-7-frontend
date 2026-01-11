@@ -1,39 +1,39 @@
+import { EExpenseStatus } from './types'
+
 export const EXPENSE_STATUS_STYLES: Record<string, { label: string; className: string }> = {
-  pending: {
+  PENDING: {
     label: 'Pendente',
     className: 'bg-blue-100 text-blue-800 border border-blue-200',
   },
-  manager_approved: {
+  MANAGER_APPROVED: {
     label: 'Aprovado pelo Gestor',
     className: 'bg-purple-100 text-purple-800 border border-purple-200',
   },
-  finance_approved: {
+  FINANCE_APPROVED: {
     label: 'Aprovado pelo Financeiro',
     className: 'bg-green-100 text-green-800 border border-green-200',
   },
-  rejected: {
+  REJECTED: {
     label: 'Rejeitado',
     className: 'bg-red-100 text-red-800 border border-red-200',
   },
 }
 
-import { ExpenseStatus } from './types'
-
 export const EXPENSE_STATUS_FLOW: Record<
-  ExpenseStatus,
+  EExpenseStatus,
   {
-    next?: ExpenseStatus
-    reject?: ExpenseStatus
+    next?: EExpenseStatus
+    reject?: EExpenseStatus
   }
 > = {
-  pending: {
-    next: 'manager_approved',
-    reject: 'rejected',
+  [EExpenseStatus.PENDING]: {
+    next: EExpenseStatus.MANAGER_APPROVED,
+    reject: EExpenseStatus.REJECTED,
   },
-  manager_approved: {
-    next: 'finance_approved',
-    reject: 'rejected',
+  [EExpenseStatus.MANAGER_APPROVED]: {
+    next: EExpenseStatus.FINANCE_APPROVED,
+    reject: EExpenseStatus.REJECTED,
   },
-  finance_approved: {},
-  rejected: {},
+  [EExpenseStatus.FINANCE_APPROVED]: {},
+  [EExpenseStatus.REJECTED]: {},
 }

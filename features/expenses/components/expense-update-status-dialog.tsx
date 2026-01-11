@@ -17,27 +17,29 @@ interface ExpenseUpdateStatusDialogProps {
   onOpenChange: (open: boolean) => void
 }
 
-export const approveExpense = async (expense: IExpense) => {
-  const next = EXPENSE_STATUS_FLOW[expense.status].next
+export const handleUpdateExpenseStatus = async (
+  expense: IExpense,
+  action: 'approve' | 'reject'
+) => {
+  const nextStatus =
+    action === 'approve'
+      ? EXPENSE_STATUS_FLOW[expense.status].next
+      : EXPENSE_STATUS_FLOW[expense.status].reject
 
-  if (!next) {
-    throw new Error(`Despesa no status ${expense.status} não pode ser aprovada`)
+  if (!nextStatus) {
+    throw new Error(
+      `Despesa no status ${expense.status} não pode ser ${action === 'approve' ? 'aprovada' : 'reprovada'}`
+    )
   }
 
-  return updateExpenseStatus(expense.expense_id, next)
+  return updateExpenseStatus(expense.expense_id, nextStatus)
 }
 
-export const rejectExpense = async (expense: IExpense) => {
-  const reject = EXPENSE_STATUS_FLOW[expense.status].reject
-
-  if (!reject) {
-    throw new Error(`Despesa no status ${expense.status} não pode ser reprovada`)
-  }
-
-  return updateExpenseStatus(expense.expense_id, reject)
-}
-
-const ExpenseUpdateStatusDialog = ({ open, onOpenChange }: ExpenseUpdateStatusDialogProps) => {
+const ExpenseUpdateStatusDialog = ({
+  expense,
+  open,
+  onOpenChange,
+}: ExpenseUpdateStatusDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
@@ -52,9 +54,12 @@ const ExpenseUpdateStatusDialog = ({ open, onOpenChange }: ExpenseUpdateStatusDi
             <Button variant="secondary">Cancelar</Button>
           </DialogClose>
 
-          <Button>Reprovar</Button>
+          <Button onClick={() => handleUpdateExpenseStatus(expense, 'approve')}>Reprovar</Button>
 
-          <Button className="bg-green-600 text-white hover:bg-green-600/90 focus:ring-green-600">
+          <Button
+            className="bg-green-600 text-white hover:bg-green-600/90 focus:ring-green-600"
+            onClick={() => handleUpdateExpenseStatus(expense, 'reject')}
+          >
             Aprovar
           </Button>
         </DialogFooter>

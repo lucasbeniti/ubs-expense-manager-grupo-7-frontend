@@ -1,10 +1,15 @@
-export type ExpenseStatus = 'pending' | 'manager_approved' | 'finance_approved' | 'rejected'
+export enum EExpenseStatus {
+  PENDING = 'PENDING',
+  MANAGER_APPROVED = 'MANAGER_APPROVED',
+  FINANCE_APPROVED = 'FINANCE_APPROVED',
+  REJECTED = 'REJECTED',
+}
 
 export interface IExpense {
   expense_id: string
   description: string
   date: string
-  status: ExpenseStatus
+  status: EExpenseStatus
   amount: number
   currency_id: string
   employee_id: string

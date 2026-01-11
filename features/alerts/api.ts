@@ -6,3 +6,9 @@ export const getAlerts = async (): Promise<IAlert[]> => {
 
   return data
 }
+
+export const updateAlertStatus = async (id: string): Promise<IAlert> => {
+  const { data } = await api.patch<IAlert>(`/alerts/${id}`)
+
+  return data
+}

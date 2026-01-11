@@ -3,7 +3,7 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { formatToBrazilianDate, formatToBrazilianDatetime } from '@/lib/utils/date'
 import { formatCurrencyToBRL } from '@/lib/utils/currency'
-import { IExpense } from '../types'
+import { EExpenseStatus, IExpense } from '../types'
 import { UpdateButton } from '@/components/shared/update-button'
 import { Badge } from '@/components/ui/badge'
 import { EXPENSE_STATUS_STYLES } from '../constants'
@@ -41,7 +41,7 @@ export const expenseColumns: ColumnDef<IExpense>[] = [
     header: 'Status',
     cell: ({ row }) => {
       const status = row.getValue('status') as string
-      const statusConfig = EXPENSE_STATUS_STYLES[status]
+      const statusConfig = EXPENSE_STATUS_STYLES[status.toUpperCase()]
 
       return (
         <Badge variant="outline" className={statusConfig.className}>
@@ -62,7 +62,10 @@ export const expenseColumns: ColumnDef<IExpense>[] = [
     cell: ({ row }) => {
       const expense = row.original
 
-      return (
+      return expense.status === EExpenseStatus.REJECTED ||
+        expense.status === EExpenseStatus.FINANCE_APPROVED ? (
+        'Sem ações disponíveis'
+      ) : (
         <UpdateButton entityName="despesa">
           {(open, setOpen) => (
             <ExpenseUpdateStatusDialog expense={expense} open={open} onOpenChange={setOpen} />

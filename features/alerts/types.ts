@@ -1,8 +1,13 @@
+export enum EAlertStatus {
+  NEW = 'NEW',
+  RESOLVED = 'RESOLVED',
+}
+
 export interface IAlert {
   alert_id: string
   message: string
   severity: string
-  status: string
+  status: EAlertStatus
   type: string
   expense_id: string
   expense_description: string

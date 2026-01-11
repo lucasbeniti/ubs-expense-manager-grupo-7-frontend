@@ -34,7 +34,7 @@ import { useTransition } from 'react'
 import { toast } from 'sonner'
 import { Loader2Icon } from 'lucide-react'
 import { IDepartment } from '@/features/departments/types'
-import { IEmployee } from '../types'
+import { EEmployeeRole, IEmployee } from '../types'
 import { EMPLOYEE_ROLE_STYLES } from '../constants'
 import { EmployeeFormData, employeeSchema } from '../schema'
 import { createEmployee, updateEmployee } from '../api'
@@ -50,7 +50,7 @@ interface EmployeeUpsertDialogProps {
     name: string
     cpf: string
     email: string
-    role: 'employee' | 'manager' | 'finance'
+    role: EEmployeeRole
     department_id: string
     manager_id: string
   }
@@ -71,7 +71,7 @@ const EmployeeUpsertDialog = ({
       name: defaultValues?.name ?? '',
       email: defaultValues?.email ?? '',
       cpf: defaultValues?.cpf ?? '',
-      role: defaultValues?.role ?? 'employee',
+      role: defaultValues?.role ?? EEmployeeRole.EMPLOYEE,
       department_id: defaultValues?.department_id ? String(defaultValues.department_id) : undefined,
       manager_id: defaultValues?.manager_id ? String(defaultValues.manager_id) : undefined,
     },
@@ -178,11 +178,11 @@ const EmployeeUpsertDialog = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="employee">
-                        {EMPLOYEE_ROLE_STYLES.employee.label}
-                      </SelectItem>
-                      <SelectItem value="manager">{EMPLOYEE_ROLE_STYLES.manager.label}</SelectItem>
-                      <SelectItem value="finance">{EMPLOYEE_ROLE_STYLES.finance.label}</SelectItem>
+                      {Object.values(EEmployeeRole).map((role) => (
+                        <SelectItem key={role} value={role}>
+                          {EMPLOYEE_ROLE_STYLES[role].label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />

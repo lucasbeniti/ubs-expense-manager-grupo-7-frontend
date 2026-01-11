@@ -40,6 +40,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { DatePicker } from '@/components/shared/date-picker'
+import { EExpenseStatus } from '../types'
 
 interface ExpenseCreateDialogProps {
   open: boolean
@@ -78,6 +79,7 @@ const ExpenseCreateDialog = ({
         ...data,
         date: data.date.toISOString().split('T')[0],
         receipt_url: `fake_nf_${data.receipt_url.name}_${Date.now()}`,
+        status: EExpenseStatus.PENDING,
       }
 
       await createExpense(payload)

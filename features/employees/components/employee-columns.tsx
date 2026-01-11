@@ -38,7 +38,7 @@ export const employeeColumns = (
     header: 'Cargo',
     cell: ({ row }) => {
       const role = row.getValue('role') as string
-      const roleConfig = EMPLOYEE_ROLE_STYLES[role]
+      const roleConfig = EMPLOYEE_ROLE_STYLES[role.toUpperCase()]
 
       return (
         <Badge variant="outline" className={roleConfig.className}>

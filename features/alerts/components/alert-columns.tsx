@@ -1,10 +1,11 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { IAlert } from '../types'
+import { EAlertStatus, IAlert } from '../types'
 import { formatToBrazilianDatetime } from '@/lib/utils/date'
 import { Badge } from '@/components/ui/badge'
 import { ALERT_STATUS_STYLES, ALERT_TYPE_STYLES } from '../constants'
+import AlertResolveButton from './alert-resolve-button'
 
 export const alertColumns: ColumnDef<IAlert>[] = [
   {
@@ -20,7 +21,7 @@ export const alertColumns: ColumnDef<IAlert>[] = [
     header: 'Status',
     cell: ({ row }) => {
       const status = row.getValue('status') as string
-      const statusConfig = ALERT_STATUS_STYLES[status]
+      const statusConfig = ALERT_STATUS_STYLES[status.toUpperCase()]
 
       return (
         <Badge variant="outline" className={statusConfig.className}>
@@ -34,7 +35,7 @@ export const alertColumns: ColumnDef<IAlert>[] = [
     header: 'Tipo',
     cell: ({ row }) => {
       const type = row.getValue('type') as string
-      const typeConfig = ALERT_TYPE_STYLES[type]
+      const typeConfig = ALERT_TYPE_STYLES[type.toUpperCase()]
 
       return (
         <Badge variant="outline" className={typeConfig.className}>
@@ -51,5 +52,19 @@ export const alertColumns: ColumnDef<IAlert>[] = [
     accessorKey: 'created_at',
     header: 'Data de criação',
     accessorFn: (row) => formatToBrazilianDatetime(row.created_at),
+  },
+  {
+    id: 'actions',
+    header: 'Ações',
+    enableGlobalFilter: false,
+    cell: ({ row }) => {
+      const alert = row.original
+
+      return alert.status === EAlertStatus.RESOLVED ? (
+        'Sem ações disponível'
+      ) : (
+        <AlertResolveButton id={alert.alert_id} />
+      )
+    },
   },
 ]

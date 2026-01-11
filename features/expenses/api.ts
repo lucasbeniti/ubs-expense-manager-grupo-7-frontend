@@ -1,5 +1,5 @@
 import { api } from '@/lib/http/api'
-import { CreateExpenseDto, ExpenseStatus, IExpense } from './types'
+import { CreateExpenseDto, EExpenseStatus, IExpense } from './types'
 
 export const getExpenses = async (): Promise<IExpense[]> => {
   const { data } = await api.get<IExpense[]>('/expenses')
@@ -19,8 +19,13 @@ export const createExpense = async (payload: CreateExpenseDto): Promise<IExpense
   return data
 }
 
-export const updateExpenseStatus = async (id: string, status: ExpenseStatus): Promise<IExpense> => {
-  const { data } = await api.patch<IExpense>(`/expenses/${id}`, status)
+export const updateExpenseStatus = async (
+  id: string,
+  status: EExpenseStatus
+): Promise<IExpense> => {
+  const { data } = await api.patch<IExpense>(`/expenses/${id}`, {
+    status,
+  })
 
   return data
 }

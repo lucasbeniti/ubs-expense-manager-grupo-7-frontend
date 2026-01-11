@@ -4,7 +4,7 @@ import EmployeesTable from '@/features/employees/components/employees-table'
 
 const EmployeesPage = async () => {
   const [employees, departments] = await Promise.all([getEmployees(), getDepartments()])
-  const managers = employees.filter((employee) => employee.role === 'manager')
+  const managers = employees.filter((employee) => employee.role === 'MANAGER')
 
   return (
     <div className="p-6">

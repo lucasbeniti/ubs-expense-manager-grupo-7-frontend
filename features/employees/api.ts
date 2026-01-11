@@ -12,7 +12,6 @@ export const getEmployeeById = async (id: string): Promise<IEmployee> => {
 }
 
 export const createEmployee = async (payload: CreateEmployeeDto): Promise<IEmployee> => {
-  console.log(payload)
   const { data } = await api.post<IEmployee>('/employees', payload)
   return data
 }
