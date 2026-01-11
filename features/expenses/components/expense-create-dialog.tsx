@@ -62,26 +62,30 @@ const ExpenseCreateDialog = ({
 
   const form = useForm<ExpenseFormData>({
     resolver: zodResolver(expenseSchema),
+    defaultValues: {
+      description: '',
+      date: undefined,
+      amount: 0,
+      currency_id: '',
+      employee_id: '',
+      category_id: '',
+    },
   })
 
   function onSubmit(data: ExpenseFormData) {
     startTransition(async () => {
-      try {
-        const payload = {
-          ...data,
-          date: data.date instanceof Date ? data.date.toISOString().split('T')[0] : data.date,
-        }
-
-        await createExpense(payload)
-        toast.success('Despesa criada com sucesso.')
-
-        form.reset()
-        onOpenChange(false)
-        router.refresh()
-      } catch (error) {
-        console.error(error)
-        toast.error('Erro ao salvar despesa.')
+      const payload = {
+        ...data,
+        date: data.date.toISOString().split('T')[0],
+        receipt_url: `fake_nf_${data.receipt_url.name}_${Date.now()}`,
       }
+
+      await createExpense(payload)
+      toast.success('Despesa criada com sucesso.')
+
+      form.reset()
+      onOpenChange(false)
+      router.refresh()
     })
   }
 
@@ -223,9 +227,16 @@ const ExpenseCreateDialog = ({
               name="receipt_url"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>URL da nota fiscal</FormLabel>
+                  <FormLabel>Nota fiscal</FormLabel>
                   <FormControl>
-                    <Input placeholder="URL da nota fiscal" {...field} />
+                    <Input
+                      type="file"
+                      accept="image/*,application/pdf"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0]
+                        field.onChange(file)
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -1,7 +1,14 @@
 import { z } from 'zod'
 
 export const expenseSchema = z.object({
-  description: z.string().min(1, 'Descrição é obrigatória'),
+  description: z
+    .string({
+      error: 'Descrição é obrigatória',
+    })
+    .trim()
+    .min(1, {
+      error: 'Descrição é obrigatória',
+    }),
   date: z.date({
     error: 'Data é obrigatória',
   }),
@@ -36,7 +43,9 @@ export const expenseSchema = z.object({
     .min(1, {
       error: 'Categoria é obrigatória',
     }),
-  receipt_url: z.string().min(1, 'URL da nota fiscal é obrigatória'),
+  receipt_url: z
+    .instanceof(File, { message: 'Nota fiscal é obrigatória' })
+    .refine((f) => f.size > 0, 'Nota fiscal é obrigatória'),
 })
 
 export type ExpenseFormData = z.infer<typeof expenseSchema>
