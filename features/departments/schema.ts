@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const departmentSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
-  monthly_budget: z
+  monthlyBudget: z
     .number({
       error: 'Orçamento mensal deve ser um número',
     })

@@ -4,12 +4,12 @@ export enum EAlertStatus {
 }
 
 export interface IAlert {
-  alert_id: string
+  id: string
   message: string
   severity: string
   status: EAlertStatus
   type: string
-  expense_id: string
-  expense_description: string
-  created_at: string
+  expenseId: string
+  expenseDescription: string
+  createdAt: string
 }

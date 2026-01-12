@@ -67,9 +67,9 @@ const ExpenseCreateDialog = ({
       description: '',
       date: undefined,
       amount: 0,
-      currency_id: '',
-      employee_id: '',
-      category_id: '',
+      currencyId: '',
+      employeeId: '',
+      categoryId: '',
     },
   })
 
@@ -78,7 +78,7 @@ const ExpenseCreateDialog = ({
       const payload = {
         ...data,
         date: data.date.toISOString().split('T')[0],
-        receipt_url: `fake_nf_${data.receipt_url.name}_${Date.now()}`,
+        receiptUrl: `fake_nf_${data.receiptUrl.name}_${Date.now()}`,
         status: EExpenseStatus.PENDING,
       }
 
@@ -151,7 +151,7 @@ const ExpenseCreateDialog = ({
 
             <FormField
               control={form.control}
-              name="currency_id"
+              name="currencyId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Moeda</FormLabel>
@@ -163,7 +163,7 @@ const ExpenseCreateDialog = ({
                     </FormControl>
                     <SelectContent>
                       {currencies.map((currency) => (
-                        <SelectItem key={currency.currency_id} value={String(currency.currency_id)}>
+                        <SelectItem key={currency.id} value={String(currency.id)}>
                           {currency.name}
                         </SelectItem>
                       ))}
@@ -176,7 +176,7 @@ const ExpenseCreateDialog = ({
 
             <FormField
               control={form.control}
-              name="category_id"
+              name="categoryId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Categoria</FormLabel>
@@ -188,7 +188,7 @@ const ExpenseCreateDialog = ({
                     </FormControl>
                     <SelectContent>
                       {categories.map((category) => (
-                        <SelectItem key={category.category_id} value={String(category.category_id)}>
+                        <SelectItem key={category.id} value={String(category.id)}>
                           {category.name}
                         </SelectItem>
                       ))}
@@ -201,7 +201,7 @@ const ExpenseCreateDialog = ({
 
             <FormField
               control={form.control}
-              name="employee_id"
+              name="employeeId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Funcionário</FormLabel>
@@ -213,7 +213,7 @@ const ExpenseCreateDialog = ({
                     </FormControl>
                     <SelectContent>
                       {employees.map((employee) => (
-                        <SelectItem key={employee.employee_id} value={String(employee.employee_id)}>
+                        <SelectItem key={employee.id} value={String(employee.id)}>
                           {employee.name}
                         </SelectItem>
                       ))}
@@ -226,7 +226,7 @@ const ExpenseCreateDialog = ({
 
             <FormField
               control={form.control}
-              name="receipt_url"
+              name="receiptUrl"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nota fiscal</FormLabel>

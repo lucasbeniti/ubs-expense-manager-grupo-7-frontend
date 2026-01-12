@@ -9,6 +9,7 @@ export const getDepartments = async (): Promise<IDepartment[]> => {
 
 export const createDepartment = async (payload: DepartmentFormData): Promise<IDepartment> => {
   const { data } = await api.post<IDepartment>('/departments', payload)
+  console.log(data)
   return data
 }
 

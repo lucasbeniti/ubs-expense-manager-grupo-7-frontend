@@ -35,7 +35,7 @@ interface DepartmentUpsertDialogProps {
   defaultValues?: {
     id: string
     name: string
-    monthly_budget: number
+    monthlyBudget: number
   }
 }
 
@@ -49,7 +49,7 @@ const DepartmentUpsertDialog = ({
     resolver: zodResolver(departmentSchema),
     defaultValues: {
       name: defaultValues?.name ?? '',
-      monthly_budget: Number(defaultValues?.monthly_budget) ?? 0,
+      monthlyBudget: Number(defaultValues?.monthlyBudget) ?? 0,
     },
   })
 
@@ -109,7 +109,7 @@ const DepartmentUpsertDialog = ({
             />
             <FormField
               control={form.control}
-              name="monthly_budget"
+              name="monthlyBudget"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Orçamento mensal</FormLabel>

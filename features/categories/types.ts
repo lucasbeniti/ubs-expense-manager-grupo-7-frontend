@@ -1,19 +1,19 @@
 export interface ICategory {
-  category_id: string
+  id: string
   name: string
-  daily_limit: number
-  monthly_limit: number
-  created_at: string
+  dailyLimit: number
+  monthlyLimit: number
+  createdAt: string
 }
 
 export interface CreateCategoryDto {
   name: string
-  daily_limit: number
-  monthly_limit: number
+  dailyLimit: number
+  monthlyLimit: number
 }
 
 export interface UpdateCategoryDto {
   name?: string
-  daily_limit?: number
-  monthly_limit?: number
+  dailyLimit?: number
+  monthlyLimit?: number
 }

@@ -11,7 +11,7 @@ import CategoryUpsertDialog from './category-upsert-dialog'
 
 export const categoryColumns: ColumnDef<ICategory>[] = [
   {
-    accessorKey: 'category_id',
+    accessorKey: 'id',
     header: '#',
   },
   {
@@ -19,19 +19,19 @@ export const categoryColumns: ColumnDef<ICategory>[] = [
     header: 'Nome',
   },
   {
-    accessorKey: 'daily_limit',
+    accessorKey: 'dailyLimit',
     header: 'Limite diário',
-    accessorFn: (row) => formatCurrencyToBRL(row.daily_limit),
+    accessorFn: (row) => formatCurrencyToBRL(row.dailyLimit),
   },
   {
-    accessorKey: 'monthly_limit',
+    accessorKey: 'monthlyLimit',
     header: 'Limite mensal',
-    accessorFn: (row) => formatCurrencyToBRL(row.monthly_limit),
+    accessorFn: (row) => formatCurrencyToBRL(row.monthlyLimit),
   },
   {
-    accessorKey: 'created_at',
+    accessorKey: 'createdAt',
     header: 'Data de criação',
-    accessorFn: (row) => formatToBrazilianDatetime(row.created_at),
+    accessorFn: (row) => formatToBrazilianDatetime(row.createdAt),
   },
   {
     id: 'actions',
@@ -48,20 +48,16 @@ export const categoryColumns: ColumnDef<ICategory>[] = [
                 open={open}
                 onOpenChange={setOpen}
                 defaultValues={{
-                  id: category.category_id,
+                  id: category.id,
                   name: category.name,
-                  daily_limit: category.daily_limit,
-                  monthly_limit: category.monthly_limit,
+                  dailyLimit: category.dailyLimit,
+                  monthlyLimit: category.monthlyLimit,
                 }}
               />
             )}
           </UpdateButton>
 
-          <DeleteButton
-            id={category.category_id}
-            onDelete={deleteCategory}
-            entityName="categoria"
-          />
+          <DeleteButton id={category.id} onDelete={deleteCategory} entityName="categoria" />
         </div>
       )
     },

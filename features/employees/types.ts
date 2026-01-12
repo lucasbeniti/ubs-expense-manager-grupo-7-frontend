@@ -5,16 +5,16 @@ export enum EEmployeeRole {
 }
 
 export interface IEmployee {
-  employee_id: string
+  id: string
   name: string
   email: string
   cpf: string
   role: EEmployeeRole
-  department_id: string
-  department_name: string
-  manager_id?: string
-  manager_name?: string
-  created_at: string
+  departmentId: string
+  departmentName: string
+  managerId?: string
+  managerName?: string
+  createdAt: string
 }
 
 export interface CreateEmployeeDto {
@@ -22,8 +22,8 @@ export interface CreateEmployeeDto {
   email: string
   cpf: string
   role: EEmployeeRole
-  department_id: string
-  manager_id?: string
+  departmentId: string
+  managerId?: string
 }
 
 export interface UpdateEmployeeDto {
@@ -31,6 +31,6 @@ export interface UpdateEmployeeDto {
   email?: string
   cpf?: string
   role?: EEmployeeRole
-  department_id?: string
-  manager_id?: string | null
+  departmentId?: string
+  managerId?: string | null
 }

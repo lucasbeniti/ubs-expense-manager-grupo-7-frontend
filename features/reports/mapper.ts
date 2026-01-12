@@ -11,8 +11,8 @@ export const mapEmployeeExpensesToChart = (
   data: EmployeeExpenseReportDto[]
 ): EmployeeExpenseChartItem[] => {
   return data.map((item) => ({
-    name: item.employee_name,
-    total: item.total_amount,
+    name: item.employeeName,
+    total: item.totalAmount,
   }))
 }
 
@@ -20,9 +20,9 @@ export const mapCategoryExpensesToChart = (
   data: CategoryExpenseReportDto[]
 ): CategoryExpenseChartItem[] => {
   return data.map((item) => ({
-    name: item.category_name,
+    name: item.categoryName,
     total: item.total,
-    key: item.category_id,
+    key: item.categoryId,
   }))
 }
 
@@ -30,8 +30,8 @@ export const mapDepartmentBudgetComparativeToChart = (
   data: DepartmentBudgetComparativeReportDto[]
 ): DepartmentBudgetComparativeChartItem[] => {
   return data.map((item) => ({
-    name: item.department_name,
+    name: item.departmentName,
     used: item.total,
-    remaining: item.total - item.monthly_budget,
+    remaining: item.total - item.monthlyBudget,
   }))
 }

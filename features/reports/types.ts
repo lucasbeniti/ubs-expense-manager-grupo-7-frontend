@@ -16,11 +16,11 @@ export interface DepartmentBudgetComparativeChartItem {
 }
 
 export interface EmployeeExpenseReportDto {
-  employee_id: number
-  employee_name: string
-  total_amount: number
+  employeeId: number
+  employeeName: string
+  totalAmount: number
   expenses: {
-    expense_id: number
+    expenseId: number
     date: string
     description: string
     amount: number
@@ -28,14 +28,14 @@ export interface EmployeeExpenseReportDto {
 }
 
 export interface CategoryExpenseReportDto {
-  category_id: string
-  category_name: string
+  categoryId: string
+  categoryName: string
   total: number
 }
 
 export interface DepartmentBudgetComparativeReportDto {
-  department_id: string
-  department_name: string
-  monthly_budget: number
+  departmentId: string
+  departmentName: string
+  monthlyBudget: number
   total: number
 }

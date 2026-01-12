@@ -1,16 +1,16 @@
 export interface IDepartment {
-  department_id: string
+  id: string
   name: string
-  monthly_budget: number
-  created_at: string
+  monthlyBudget: number
+  createdAt: string
 }
 
 export interface CreateDepartmentDto {
   name: string
-  monthly_budget: number
+  monthlyBudget: number
 }
 
 export interface UpdateDepartmentDto {
   name?: string
-  monthly_budget?: number
+  monthlyBudget?: number
 }

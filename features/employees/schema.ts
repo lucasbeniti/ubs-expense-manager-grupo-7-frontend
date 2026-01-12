@@ -8,7 +8,7 @@ export const employeeSchema = z.object({
   role: z.enum(EEmployeeRole, {
     error: 'Cargo é obrigatório',
   }),
-  department_id: z
+  departmentId: z
     .string({
       error: 'Departamento é obrigatório',
     })
@@ -16,7 +16,7 @@ export const employeeSchema = z.object({
     .min(1, {
       error: 'Departamento é obrigatório',
     }),
-  manager_id: z.string().optional(),
+  managerId: z.string().optional(),
 })
 
 export type EmployeeFormData = z.infer<typeof employeeSchema>

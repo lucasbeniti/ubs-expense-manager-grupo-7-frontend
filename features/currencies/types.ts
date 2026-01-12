@@ -1,7 +1,7 @@
 export interface ICurrency {
-  currency_id: string
+  id: string
   code: string
   name: string
   active: boolean
-  created_at: string
+  createdAt: string
 }

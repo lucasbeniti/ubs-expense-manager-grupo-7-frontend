@@ -51,8 +51,8 @@ interface EmployeeUpsertDialogProps {
     cpf: string
     email: string
     role: EEmployeeRole
-    department_id: string
-    manager_id: string
+    departmentId: string
+    managerId: string
   }
 }
 
@@ -72,8 +72,8 @@ const EmployeeUpsertDialog = ({
       email: defaultValues?.email ?? '',
       cpf: defaultValues?.cpf ?? '',
       role: defaultValues?.role ?? EEmployeeRole.EMPLOYEE,
-      department_id: defaultValues?.department_id ? String(defaultValues.department_id) : undefined,
-      manager_id: defaultValues?.manager_id ? String(defaultValues.manager_id) : undefined,
+      departmentId: defaultValues?.departmentId ? String(defaultValues.departmentId) : undefined,
+      managerId: defaultValues?.managerId ? String(defaultValues.managerId) : undefined,
     },
   })
 
@@ -192,7 +192,7 @@ const EmployeeUpsertDialog = ({
 
             <FormField
               control={form.control}
-              name="department_id"
+              name="departmentId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Departamento</FormLabel>
@@ -204,10 +204,7 @@ const EmployeeUpsertDialog = ({
                     </FormControl>
                     <SelectContent>
                       {departments.map((department) => (
-                        <SelectItem
-                          key={department.department_id}
-                          value={String(department.department_id)}
-                        >
+                        <SelectItem key={department.id} value={String(department.id)}>
                           {department.name}
                         </SelectItem>
                       ))}
@@ -220,7 +217,7 @@ const EmployeeUpsertDialog = ({
 
             <FormField
               control={form.control}
-              name="manager_id"
+              name="managerId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Gestor</FormLabel>
@@ -232,7 +229,7 @@ const EmployeeUpsertDialog = ({
                     </FormControl>
                     <SelectContent>
                       {managers.map((manager) => (
-                        <SelectItem key={manager.employee_id} value={String(manager.employee_id)}>
+                        <SelectItem key={manager.id} value={String(manager.id)}>
                           {manager.name}
                         </SelectItem>
                       ))}

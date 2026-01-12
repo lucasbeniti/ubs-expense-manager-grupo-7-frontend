@@ -11,7 +11,7 @@ import DepartmentUpsertDialog from './department-upsert-dialog'
 
 export const departmentColumns: ColumnDef<IDepartment>[] = [
   {
-    accessorKey: 'department_id',
+    accessorKey: 'id',
     header: '#',
   },
   {
@@ -19,14 +19,14 @@ export const departmentColumns: ColumnDef<IDepartment>[] = [
     header: 'Nome',
   },
   {
-    accessorKey: 'monthly_budget',
+    accessorKey: 'monthlyBudget',
     header: 'Orçamento mensal',
-    accessorFn: (row) => formatCurrencyToBRL(row.monthly_budget),
+    accessorFn: (row) => formatCurrencyToBRL(row.monthlyBudget),
   },
   {
-    accessorKey: 'created_at',
+    accessorKey: 'createdAt',
     header: 'Data de criação',
-    accessorFn: (row) => formatToBrazilianDatetime(row.created_at),
+    accessorFn: (row) => formatToBrazilianDatetime(row.createdAt),
   },
   {
     id: 'actions',
@@ -43,19 +43,15 @@ export const departmentColumns: ColumnDef<IDepartment>[] = [
                 open={open}
                 onOpenChange={setOpen}
                 defaultValues={{
-                  id: department.department_id,
+                  id: department.id,
                   name: department.name,
-                  monthly_budget: department.monthly_budget,
+                  monthlyBudget: department.monthlyBudget,
                 }}
               />
             )}
           </UpdateButton>
 
-          <DeleteButton
-            id={department.department_id}
-            onDelete={deleteDepartment}
-            entityName="departamento"
-          />
+          <DeleteButton id={department.id} onDelete={deleteDepartment} entityName="departamento" />
         </div>
       )
     },

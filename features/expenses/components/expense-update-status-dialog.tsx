@@ -38,7 +38,7 @@ const ExpenseUpdateStatusDialog = ({
       )
     }
     console.log(action, nextStatus)
-    await updateExpenseStatus(expense.expense_id, nextStatus)
+    await updateExpenseStatus(expense.id, nextStatus)
 
     router.refresh()
     toast.success('Despesa atualizada com sucesso.')

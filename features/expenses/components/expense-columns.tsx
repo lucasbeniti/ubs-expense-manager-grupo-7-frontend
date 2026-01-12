@@ -11,7 +11,7 @@ import ExpenseUpdateStatusDialog from './expense-update-status-dialog'
 
 export const expenseColumns: ColumnDef<IExpense>[] = [
   {
-    accessorKey: 'expense_id',
+    accessorKey: 'id',
     header: '#',
   },
   {
@@ -21,7 +21,7 @@ export const expenseColumns: ColumnDef<IExpense>[] = [
   {
     accessorKey: 'date',
     header: 'Data',
-    accessorFn: (row) => formatToBrazilianDate(row.created_at),
+    accessorFn: (row) => formatToBrazilianDate(row.createdAt),
   },
   {
     accessorKey: 'amount',
@@ -29,11 +29,11 @@ export const expenseColumns: ColumnDef<IExpense>[] = [
     accessorFn: (row) => formatCurrencyToBRL(row.amount),
   },
   {
-    accessorKey: 'employee_name',
+    accessorKey: 'employeeName',
     header: 'Funcionário',
   },
   {
-    accessorKey: 'category_name',
+    accessorKey: 'categoryName',
     header: 'Categoria',
   },
   {
@@ -51,9 +51,9 @@ export const expenseColumns: ColumnDef<IExpense>[] = [
     },
   },
   {
-    accessorKey: 'created_at',
+    accessorKey: 'createdAt',
     header: 'Data de criação',
-    accessorFn: (row) => formatToBrazilianDatetime(row.created_at),
+    accessorFn: (row) => formatToBrazilianDatetime(row.createdAt),
   },
   {
     id: 'actions',

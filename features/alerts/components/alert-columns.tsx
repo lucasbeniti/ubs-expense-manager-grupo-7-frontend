@@ -9,7 +9,7 @@ import AlertResolveButton from './alert-resolve-button'
 
 export const alertColumns: ColumnDef<IAlert>[] = [
   {
-    accessorKey: 'alert_id',
+    accessorKey: 'id',
     header: '#',
   },
   {
@@ -49,9 +49,9 @@ export const alertColumns: ColumnDef<IAlert>[] = [
     header: 'Despesa',
   },
   {
-    accessorKey: 'created_at',
+    accessorKey: 'createdAt',
     header: 'Data de criação',
-    accessorFn: (row) => formatToBrazilianDatetime(row.created_at),
+    accessorFn: (row) => formatToBrazilianDatetime(row.createdAt),
   },
   {
     id: 'actions',
@@ -63,7 +63,7 @@ export const alertColumns: ColumnDef<IAlert>[] = [
       return alert.status === EAlertStatus.RESOLVED ? (
         'Sem ações disponível'
       ) : (
-        <AlertResolveButton id={alert.alert_id} />
+        <AlertResolveButton id={alert.id} />
       )
     },
   },

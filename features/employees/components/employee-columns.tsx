@@ -17,7 +17,7 @@ export const employeeColumns = (
   managers: IEmployee[]
 ): ColumnDef<IEmployee>[] => [
   {
-    accessorKey: 'employee_id',
+    accessorKey: 'id',
     header: '#',
   },
   {
@@ -48,22 +48,22 @@ export const employeeColumns = (
     },
   },
   {
-    accessorKey: 'department_name',
+    accessorKey: 'departmentName',
     header: 'Departamento',
   },
   {
-    accessorKey: 'manager_name',
+    accessorKey: 'managerName',
     header: 'Gestor',
     cell: ({ row }) => {
-      const managerName = row.original.manager_name
+      const managerName = row.original.managerName
 
       return managerName ? managerName : 'N/A'
     },
   },
   {
-    accessorKey: 'created_at',
+    accessorKey: 'createdAt',
     header: 'Data de criação',
-    accessorFn: (row) => formatToBrazilianDatetime(row.created_at),
+    accessorFn: (row) => formatToBrazilianDatetime(row.createdAt),
   },
   {
     id: 'actions',
@@ -82,23 +82,19 @@ export const employeeColumns = (
                 departments={departments}
                 managers={managers}
                 defaultValues={{
-                  id: employee.employee_id,
+                  id: employee.id,
                   name: employee.name,
                   cpf: formatCPF(employee.cpf),
                   email: employee.email,
                   role: employee.role,
-                  department_id: employee.department_id,
-                  manager_id: employee.manager_id ?? '',
+                  departmentId: employee.departmentId,
+                  managerId: employee.managerId ?? '',
                 }}
               />
             )}
           </UpdateButton>
 
-          <DeleteButton
-            id={employee.employee_id}
-            onDelete={deleteEmployee}
-            entityName="funcionário"
-          />
+          <DeleteButton id={employee.id} onDelete={deleteEmployee} entityName="funcionário" />
         </>
       )
     },

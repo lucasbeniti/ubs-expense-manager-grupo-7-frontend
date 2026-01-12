@@ -19,7 +19,7 @@ export const expenseSchema = z.object({
     .min(1, {
       error: 'Valor deve ser positivo',
     }),
-  currency_id: z
+  currencyId: z
     .string({
       error: 'Moeda é obrigatória',
     })
@@ -27,7 +27,7 @@ export const expenseSchema = z.object({
     .min(1, {
       error: 'Moeda é obrigatória',
     }),
-  employee_id: z
+  employeeId: z
     .string({
       error: 'Funcionário é obrigatório',
     })
@@ -35,7 +35,7 @@ export const expenseSchema = z.object({
     .min(1, {
       error: 'Funcionário é obrigatório',
     }),
-  category_id: z
+  categoryId: z
     .string({
       error: 'Categoria é obrigatória',
     })
@@ -43,7 +43,7 @@ export const expenseSchema = z.object({
     .min(1, {
       error: 'Categoria é obrigatória',
     }),
-  receipt_url: z
+  receiptUrl: z
     .instanceof(File, { message: 'Nota fiscal é obrigatória' })
     .refine((f) => f.size > 0, 'Nota fiscal é obrigatória'),
 })

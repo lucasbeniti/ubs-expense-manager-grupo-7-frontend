@@ -6,25 +6,25 @@ export enum EExpenseStatus {
 }
 
 export interface IExpense {
-  expense_id: string
+  id: string
   description: string
   date: string
   status: EExpenseStatus
   amount: number
-  currency_id: string
-  employee_id: string
-  employee_name: string
-  category_id: string
-  category_name: string
-  created_at: string
-  receipt_url: string
+  currencyId: string
+  employeeId: string
+  employeeName: string
+  categoryId: string
+  categoryName: string
+  createdAt: string
+  receiptUrl: string
 }
 
 export interface CreateExpenseDto {
   description: string
   date: string
   amount: number
-  currency_id: string
-  employee_id: string
-  category_id: string
+  currencyId: string
+  employeeId: string
+  categoryId: string
 }

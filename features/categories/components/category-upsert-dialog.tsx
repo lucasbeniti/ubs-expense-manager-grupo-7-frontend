@@ -35,8 +35,8 @@ interface CategoryUpsertDialogProps {
   defaultValues?: {
     id: string
     name: string
-    daily_limit: number
-    monthly_limit: number
+    dailyLimit: number
+    monthlyLimit: number
   }
 }
 
@@ -46,8 +46,8 @@ const CategoryUpsertDialog = ({ open, onOpenChange, defaultValues }: CategoryUps
     resolver: zodResolver(categorySchema),
     defaultValues: {
       name: defaultValues?.name ?? '',
-      daily_limit: Number(defaultValues?.daily_limit) ?? 0,
-      monthly_limit: Number(defaultValues?.monthly_limit) ?? 0,
+      dailyLimit: Number(defaultValues?.dailyLimit) ?? 0,
+      monthlyLimit: Number(defaultValues?.monthlyLimit) ?? 0,
     },
   })
 
@@ -108,7 +108,7 @@ const CategoryUpsertDialog = ({ open, onOpenChange, defaultValues }: CategoryUps
 
             <FormField
               control={form.control}
-              name="daily_limit"
+              name="dailyLimit"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Limite diário</FormLabel>
@@ -126,7 +126,7 @@ const CategoryUpsertDialog = ({ open, onOpenChange, defaultValues }: CategoryUps
 
             <FormField
               control={form.control}
-              name="monthly_limit"
+              name="monthlyLimit"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Limite mensal</FormLabel>
