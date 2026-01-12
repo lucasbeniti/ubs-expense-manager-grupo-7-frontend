@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button'
 import { EXPENSE_STATUS_FLOW } from '../constants'
 import { IExpense } from '../types'
 import { updateExpenseStatus } from '../api'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 interface ExpenseUpdateStatusDialogProps {
   expense: IExpense
@@ -17,29 +19,31 @@ interface ExpenseUpdateStatusDialogProps {
   onOpenChange: (open: boolean) => void
 }
 
-export const handleUpdateExpenseStatus = async (
-  expense: IExpense,
-  action: 'approve' | 'reject'
-) => {
-  const nextStatus =
-    action === 'approve'
-      ? EXPENSE_STATUS_FLOW[expense.status].next
-      : EXPENSE_STATUS_FLOW[expense.status].reject
-
-  if (!nextStatus) {
-    throw new Error(
-      `Despesa no status ${expense.status} não pode ser ${action === 'approve' ? 'aprovada' : 'reprovada'}`
-    )
-  }
-
-  return updateExpenseStatus(expense.expense_id, nextStatus)
-}
-
 const ExpenseUpdateStatusDialog = ({
   expense,
   open,
   onOpenChange,
 }: ExpenseUpdateStatusDialogProps) => {
+  const router = useRouter()
+
+  const handleUpdateExpenseStatus = async (expense: IExpense, action: 'approve' | 'reject') => {
+    const nextStatus =
+      action === 'approve'
+        ? EXPENSE_STATUS_FLOW[expense.status].next
+        : EXPENSE_STATUS_FLOW[expense.status].reject
+
+    if (!nextStatus) {
+      return toast.error(
+        `Despesa no status ${expense.status} não pode ser ${action === 'approve' ? 'aprovada' : 'reprovada'}`
+      )
+    }
+    console.log(action, nextStatus)
+    await updateExpenseStatus(expense.expense_id, nextStatus)
+
+    router.refresh()
+    toast.success('Despesa atualizada com sucesso.')
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
@@ -54,11 +58,11 @@ const ExpenseUpdateStatusDialog = ({
             <Button variant="secondary">Cancelar</Button>
           </DialogClose>
 
-          <Button onClick={() => handleUpdateExpenseStatus(expense, 'approve')}>Reprovar</Button>
+          <Button onClick={() => handleUpdateExpenseStatus(expense, 'reject')}>Reprovar</Button>
 
           <Button
             className="bg-green-600 text-white hover:bg-green-600/90 focus:ring-green-600"
-            onClick={() => handleUpdateExpenseStatus(expense, 'reject')}
+            onClick={() => handleUpdateExpenseStatus(expense, 'approve')}
           >
             Aprovar
           </Button>
