@@ -9,13 +9,7 @@ const LoginPage = () => {
       </div>
 
       <div className="relative hidden md:block">
-        <Image
-          src="/ubs-logo.webp"
-          alt="UBS Expense Manager"
-          fill
-          className="object-cover"
-          priority
-        />
+        <Image src="/ubs-logo.webp" alt="UBS Hermes" fill className="object-cover" priority />
       </div>
     </main>
   )

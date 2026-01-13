@@ -10,6 +10,7 @@ export interface IExpense {
   description: string
   date: string
   status: EExpenseStatus
+  needReview: boolean
   amount: number
   currencyId: string
   employeeId: string

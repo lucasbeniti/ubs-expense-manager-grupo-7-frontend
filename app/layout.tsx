@@ -10,7 +10,7 @@ export const ibmPlex = IBM_Plex_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'UBS Expense Manager',
+  title: 'UBS Hermes',
   description:
     'O UBS precisa controlar melhor os gastos corporativos de funcionários em viagens, refeições e despesas diversas. Hoje o processo é feito via planilhas e e-mails, sem rastreabilidade clara, causando risco de estouro de orçamento e reembolsos indevidos.',
 }

@@ -51,6 +51,26 @@ export const expenseColumns: ColumnDef<IExpense>[] = [
     },
   },
   {
+    accessorKey: 'needReview',
+    header: 'Necessita Revisão',
+    cell: ({ row }) => {
+      const needReview = row.getValue('needReview') as boolean
+
+      return (
+        <Badge
+          variant={needReview ? 'default' : 'secondary'}
+          className={
+            needReview
+              ? 'border-red-200 bg-red-100 text-red-800'
+              : 'border-green-200 bg-green-100 text-green-800'
+          }
+        >
+          {needReview ? 'Sim' : 'Não'}
+        </Badge>
+      )
+    },
+  },
+  {
     accessorKey: 'createdAt',
     header: 'Data de criação',
     accessorFn: (row) => formatToBrazilianDatetime(row.createdAt),

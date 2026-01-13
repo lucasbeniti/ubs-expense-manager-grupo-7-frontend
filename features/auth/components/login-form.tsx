@@ -30,7 +30,7 @@ export function LoginForm() {
           <FieldGroup>
             <div className="text-center">
               <h1 className="text-2xl font-bold">Bem-vindo!</h1>
-              <p className="text-muted-foreground">Acesse sua conta UBS Expense Manager</p>
+              <p className="text-muted-foreground">Acesse sua conta UBS Hermes</p>
             </div>
 
             <Field>

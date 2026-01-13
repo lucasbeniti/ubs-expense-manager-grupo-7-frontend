@@ -37,7 +37,7 @@ const ExpenseUpdateStatusDialog = ({
         `Despesa no status ${expense.status} não pode ser ${action === 'approve' ? 'aprovada' : 'reprovada'}`
       )
     }
-    console.log(action, nextStatus)
+
     await updateExpenseStatus(expense.id, nextStatus)
 
     router.refresh()
