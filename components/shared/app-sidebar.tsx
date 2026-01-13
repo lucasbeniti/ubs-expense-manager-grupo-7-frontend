@@ -58,7 +58,7 @@ const data = {
     },
     {
       name: 'Auditoria de Despesas',
-      url: '/expense-audit-logs',
+      url: '/expense-logs',
       icon: FileSearch,
     },
     {

@@ -6,4 +6,5 @@ export const BREADCRUMB_LABELS: Record<string, string> = {
   expenses: 'Despesas',
   reports: 'Relatórios',
   alerts: 'Alertas',
+  'expense-logs': 'Auditoria de Despesas',
 }

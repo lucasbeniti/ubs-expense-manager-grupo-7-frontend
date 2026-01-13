@@ -45,7 +45,7 @@ export const alertColumns: ColumnDef<IAlert>[] = [
     },
   },
   {
-    accessorKey: 'expense_description',
+    accessorKey: 'expenseDescription',
     header: 'Despesa',
   },
   {
