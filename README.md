@@ -242,9 +242,11 @@ lib/                          # Utilitários e configurações
     - Exporta dados para análise
 
 ---
-
 ## 🧪 Testes
 
+1. JUnit 5
+2. Testcontainers
+3. Mockito 
 ---
 
 ## Deployment
