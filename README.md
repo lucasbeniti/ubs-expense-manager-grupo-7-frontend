@@ -1,5 +1,3 @@
-
-```
 # 💼 UBS HERMES - Expense Manager  – Frontend
 
 Frontend de um sistema corporativo de controle de despesas desenvolvido para resolver um problema real do UBS: a gestão de gastos de funcionários que atualmente é feita por meio de planilhas e e-mails, sem rastreabilidade adequada.
