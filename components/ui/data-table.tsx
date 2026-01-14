@@ -97,16 +97,16 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center gap-2 py-4">
+      <div className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center">
         <Input
           placeholder="Busque por qualquer dado..."
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
-          className="max-w-sm"
+          className="w-full sm:max-w-sm"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button variant="outline" className="w-full sm:ml-auto sm:w-auto">
               Editar Colunas <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
@@ -131,8 +131,8 @@ export function DataTable<TData, TValue>({
 
         {actions}
       </div>
-      <div className="rounded-md border">
-        <Table>
+      <div className="overflow-x-auto rounded-md border">
+        <Table className="min-w-[900px]">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -167,13 +167,13 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-between py-4">
+      <div className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
         <span className="text-muted-foreground text-sm">
           Exibindo {table.getFilteredRowModel().rows.length} de{' '}
           {table.getCoreRowModel().rows.length}{' '}
           {table.getCoreRowModel().rows.length > 1 ? 'registros' : 'registro'}
         </span>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center justify-between space-x-2 sm:justify-end">
           <span className="text-muted-foreground mr-5 text-sm whitespace-nowrap">
             Página {table.getState().pagination.pageIndex + 1} de {table.getPageCount()}
           </span>

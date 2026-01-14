@@ -60,25 +60,28 @@ export const EmployeeExpensesChart = ({ expenses }: EmployeeExpensesChartProps) 
 
   return (
     <Card>
-      <CardHeader className="space-y-3">
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col gap-2">
-            <CardTitle>Gastos por funcionário</CardTitle>
-            <CardDescription>
-              Período:{' '}
-              <span className="font-medium">
-                {format(displayStart, 'dd/MM/yyyy')} — {format(displayEnd, 'dd/MM/yyyy')}
-              </span>
+      <CardHeader className="pb-3">
+        <div className="grid gap-4 lg:grid-cols-[1fr_auto]">
+          <div className="flex flex-col justify-center gap-1">
+            <CardTitle className="text-base md:text-lg">Gastos por funcionário</CardTitle>
+            <CardDescription className="text-xs md:text-sm">
+              {format(displayStart, 'dd/MM/yyyy')} — {format(displayEnd, 'dd/MM/yyyy')}
             </CardDescription>
           </div>
 
-          <div className="flex gap-2">
-            <DatePicker value={startDate} onChange={setStartDate} placeholder="Data inicial" />
+          <div className="flex w-full flex-wrap items-end gap-2">
+            <div className="flex min-w-[140px] flex-1 flex-col">
+              <span className="text-muted-foreground text-xs">Data inicial</span>
+              <DatePicker value={startDate} onChange={setStartDate} />
+            </div>
 
-            <DatePicker value={endDate} onChange={setEndDate} placeholder="Data final" />
+            <div className="flex min-w-[140px] flex-1 flex-col">
+              <span className="text-muted-foreground text-xs">Data final</span>
+              <DatePicker value={endDate} onChange={setEndDate} />
+            </div>
 
-            <Button size="sm" onClick={handleFilter} disabled={loading}>
-              {loading && <Loader2Icon className="animate-spin" />}
+            <Button size="sm" onClick={handleFilter} disabled={loading} className="h-10 shrink-0">
+              {loading && <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />}
               Filtrar
             </Button>
           </div>
