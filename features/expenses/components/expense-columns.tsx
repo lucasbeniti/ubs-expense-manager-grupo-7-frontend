@@ -84,32 +84,22 @@ export const expenseColumns: ColumnDef<IExpense>[] = [
       const expense = row.original
       const { user } = useAuthContext()
 
-      if (user?.role === 'EMPLOYEE') {
-        return 'Sem ações disponíveis'
+      const canManagerAction = user?.role === 'MANAGER' && expense.status === EExpenseStatus.PENDING
+
+      const canFinanceAction =
+        user?.role === 'FINANCE' && expense.status === EExpenseStatus.MANAGER_APPROVED
+
+      if (canManagerAction || canFinanceAction) {
+        return (
+          <UpdateButton entityName="despesa">
+            {(open, setOpen) => (
+              <ExpenseUpdateStatusDialog expense={expense} open={open} onOpenChange={setOpen} />
+            )}
+          </UpdateButton>
+        )
       }
 
-      const isFinalized =
-        expense.status === EExpenseStatus.REJECTED ||
-        expense.status === EExpenseStatus.FINANCE_APPROVED
-
-      if (isFinalized) {
-        return 'Sem ações disponíveis'
-      }
-
-      const isManagerAndAlreadyApproved =
-        user?.role === 'MANAGER' && expense.status === EExpenseStatus.MANAGER_APPROVED
-
-      if (isManagerAndAlreadyApproved) {
-        return 'Sem ações disponíveis'
-      }
-
-      return (
-        <UpdateButton entityName="despesa">
-          {(open, setOpen) => (
-            <ExpenseUpdateStatusDialog expense={expense} open={open} onOpenChange={setOpen} />
-          )}
-        </UpdateButton>
-      )
+      return 'Sem ações disponíveis'
     },
   },
 ]

@@ -44,6 +44,7 @@ const ExpenseUpdateStatusDialog = ({
       router.refresh()
       toast.success('Despesa atualizada com sucesso!')
     } catch (err) {
+      console.error(err)
       toast.error('Não foi possível aprovar a despesa')
     }
   }

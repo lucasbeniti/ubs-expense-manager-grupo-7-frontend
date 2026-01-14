@@ -32,6 +32,6 @@ export const mapDepartmentBudgetComparativeToChart = (
   return data.map((item) => ({
     name: item.departmentName,
     used: item.total,
-    remaining: item.total - item.monthlyBudget,
+    remaining: item.monthlyBudget - item.total,
   }))
 }

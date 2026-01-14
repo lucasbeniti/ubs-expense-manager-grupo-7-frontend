@@ -90,7 +90,7 @@ export const EmployeeExpensesChart = ({ expenses }: EmployeeExpensesChartProps) 
 
       <CardContent className="h-[280px]">
         <ChartContainer config={chartConfig} className="h-full w-full">
-          <BarChart data={chartData} margin={{ top: -10, right: 0, left: 0, bottom: -10 }}>
+          <BarChart data={chartData} margin={{ top: 20, right: 0, left: 0, bottom: -10 }}>
             <CartesianGrid vertical={false} />
 
             <XAxis dataKey="name" tickLine={false} axisLine={false} />
