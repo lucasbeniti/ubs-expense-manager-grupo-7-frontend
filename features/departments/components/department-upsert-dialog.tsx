@@ -62,11 +62,11 @@ const DepartmentUpsertDialog = ({
         if (isEditing) {
           await updateDepartment(defaultValues!.id, data)
 
-          toast.success('Departamento atualizado com sucesso.')
+          toast.success('Departamento atualizado com sucesso!')
         } else {
           await createDepartment(data)
 
-          toast.success('Departamento criado com sucesso.')
+          toast.success('Departamento criado com sucesso!')
         }
         form.reset()
 
@@ -76,7 +76,7 @@ const DepartmentUpsertDialog = ({
       } catch (error) {
         console.error(error)
 
-        toast.error('Erro ao salvar departamento.')
+        toast.error('Erro ao salvar departamento!')
       }
     })
   }

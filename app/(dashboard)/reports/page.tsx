@@ -8,15 +8,19 @@ import {
 } from '@/features/reports/mapper'
 import { getCategoryExpenses } from '@/features/reports/api'
 import { mapCategoryExpensesToChart } from '@/features/reports/mapper'
+import { apiServer } from '@/lib/http/api-server'
 
 const ReportsPage = async () => {
-  const employeeExpenses = await getEmployeeExpenses()
+  const fetcher = await apiServer()
+
+  const [employeeExpenses, categoryExpenses, departmentBudgetComparative] = await Promise.all([
+    getEmployeeExpenses(undefined, undefined, fetcher),
+    getCategoryExpenses(fetcher),
+    getDepartmentBudgetComparative(fetcher),
+  ])
+
   const formattedEmployeeExpenses = mapEmployeeExpensesToChart(employeeExpenses)
-
-  const categoryExpenses = await getCategoryExpenses()
   const formattedCategoryExpenses = mapCategoryExpensesToChart(categoryExpenses)
-
-  const departmentBudgetComparative = await getDepartmentBudgetComparative()
   const formattedDepartmentBudgetComparative = mapDepartmentBudgetComparativeToChart(
     departmentBudgetComparative
   )

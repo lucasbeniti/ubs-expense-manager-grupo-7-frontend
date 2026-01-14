@@ -37,7 +37,7 @@ const AlertResolveButton = ({ id }: AlertResolveButtonProps) => {
       router.refresh()
     } catch (error) {
       console.error(error)
-      toast.error('Erro ao resolver alerta')
+      toast.error('Erro ao resolver alerta.')
     } finally {
       setIsLoading(false)
     }

@@ -27,14 +27,6 @@ export const expenseSchema = z.object({
     .min(1, {
       error: 'Moeda é obrigatória',
     }),
-  employeeId: z
-    .string({
-      error: 'Funcionário é obrigatório',
-    })
-    .trim()
-    .min(1, {
-      error: 'Funcionário é obrigatório',
-    }),
   categoryId: z
     .string({
       error: 'Categoria é obrigatória',

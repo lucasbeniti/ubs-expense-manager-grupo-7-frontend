@@ -23,53 +23,61 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
+import { useAuthContext } from '@/contexts/auth-context'
 
-const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '',
+const ALL_ITEMS = [
+  {
+    name: 'Funcionários',
+    url: '/employees',
+    icon: Users,
+    roles: ['MANAGER'],
   },
-  items: [
-    {
-      name: 'Funcionários',
-      url: '/employees',
-      icon: Users,
-    },
-    {
-      name: 'Departamentos',
-      url: '/departments',
-      icon: Building2,
-    },
-    {
-      name: 'Categorias',
-      url: '/categories',
-      icon: ChartBarStacked,
-    },
-    {
-      name: 'Despesas',
-      url: '/expenses',
-      icon: Receipt,
-    },
-    {
-      name: 'Alertas',
-      url: '/alerts',
-      icon: Bell,
-    },
-    {
-      name: 'Auditoria de Despesas',
-      url: '/expense-logs',
-      icon: FileSearch,
-    },
-    {
-      name: 'Relatórios',
-      url: '/reports',
-      icon: ChartBarIcon,
-    },
-  ],
-}
+  {
+    name: 'Departamentos',
+    url: '/departments',
+    icon: Building2,
+    roles: ['MANAGER'],
+  },
+  {
+    name: 'Categorias',
+    url: '/categories',
+    icon: ChartBarStacked,
+    roles: ['MANAGER'],
+  },
+  {
+    name: 'Despesas',
+    url: '/expenses',
+    icon: Receipt,
+    roles: ['MANAGER', 'FINANCE', 'EMPLOYEE'],
+  },
+  {
+    name: 'Alertas',
+    url: '/alerts',
+    icon: Bell,
+    roles: ['FINANCE'],
+  },
+  {
+    name: 'Auditoria de Despesas',
+    url: '/expense-logs',
+    icon: FileSearch,
+    roles: ['FINANCE'],
+  },
+  {
+    name: 'Relatórios',
+    url: '/reports',
+    icon: ChartBarIcon,
+    roles: ['FINANCE'],
+  },
+]
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useAuthContext()
+
+  const filteredItems = React.useMemo(() => {
+    if (!user) return []
+    return ALL_ITEMS.filter((item) => item.roles.includes(user.role))
+  }, [user])
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -90,10 +98,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavItems items={data.items} />
+        <NavItems items={filteredItems} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
     </Sidebar>
   )

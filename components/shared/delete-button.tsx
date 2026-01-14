@@ -33,7 +33,7 @@ export function DeleteButton({ id, onDelete, entityName = 'item' }: DeleteButton
     } catch (error) {
       console.error(error)
 
-      toast.error(`Erro ao excluir ${entityName}`)
+      toast.error(`Erro ao excluir ${entityName}.`)
     } finally {
       setIsLoading(false)
     }

@@ -35,8 +35,8 @@ export function LoginForm() {
 
             <Field>
               <FieldLabel htmlFor="email">E-mail</FieldLabel>
-              <Input id="email" type="email" autoFocus {...register('email')} />
-              {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
+              <Input id="email" type="email" autoFocus {...register('login')} />
+              {errors.login && <p className="text-xs text-red-500">{errors.login.message}</p>}
             </Field>
 
             <Field>

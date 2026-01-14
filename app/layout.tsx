@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { IBM_Plex_Sans } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'sonner'
+import { AuthProvider } from '@/contexts/auth-context'
 
 export const ibmPlex = IBM_Plex_Sans({
   subsets: ['latin'],
@@ -25,7 +26,9 @@ export default function RootLayout({
       <Toaster richColors={true} position={'top-right'} />
 
       <html lang="en">
-        <body className={ibmPlex.variable}>{children}</body>
+        <body className={ibmPlex.variable}>
+          <AuthProvider>{children}</AuthProvider>
+        </body>
       </html>
     </>
   )

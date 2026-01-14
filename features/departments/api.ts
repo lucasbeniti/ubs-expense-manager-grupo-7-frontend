@@ -1,26 +1,35 @@
+import { api } from '@/lib/http/api'
+import { AxiosInstance } from 'axios'
 import { IDepartment } from './types'
 import { DepartmentFormData } from './schema'
-import { api } from '@/lib/http/api'
 
-export const getDepartments = async (): Promise<IDepartment[]> => {
-  const { data } = await api.get<IDepartment[]>('/departments')
+export const getDepartments = async (
+  axiosInstance: AxiosInstance = api
+): Promise<IDepartment[]> => {
+  const { data } = await axiosInstance.get<IDepartment[]>('/departments')
   return data
 }
 
-export const createDepartment = async (payload: DepartmentFormData): Promise<IDepartment> => {
-  const { data } = await api.post<IDepartment>('/departments', payload)
-
+export const createDepartment = async (
+  payload: DepartmentFormData,
+  axiosInstance: AxiosInstance = api
+): Promise<IDepartment> => {
+  const { data } = await axiosInstance.post<IDepartment>('/departments', payload)
   return data
 }
 
 export const updateDepartment = async (
   id: string,
-  payload: DepartmentFormData
+  payload: DepartmentFormData,
+  axiosInstance: AxiosInstance = api
 ): Promise<IDepartment> => {
-  const { data } = await api.put<IDepartment>(`/departments/${id}`, payload)
+  const { data } = await axiosInstance.put<IDepartment>(`/departments/${id}`, payload)
   return data
 }
 
-export const deleteDepartment = async (id: string): Promise<void> => {
-  await api.delete(`/departments/${id}`)
+export const deleteDepartment = async (
+  id: string,
+  axiosInstance: AxiosInstance = api
+): Promise<void> => {
+  await axiosInstance.delete(`/departments/${id}`)
 }

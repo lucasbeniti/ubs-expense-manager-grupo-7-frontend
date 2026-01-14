@@ -31,7 +31,6 @@ import { ExpenseFormData, expenseSchema } from '../schema'
 import { createExpense } from '../api'
 import { ICurrency } from '@/features/currencies/types'
 import { ICategory } from '@/features/categories/types'
-import { IEmployee } from '@/features/employees/types'
 import {
   Select,
   SelectContent,
@@ -41,13 +40,13 @@ import {
 } from '@/components/ui/select'
 import { DatePicker } from '@/components/shared/date-picker'
 import { EExpenseStatus } from '../types'
+import { useAuthContext } from '@/contexts/auth-context'
 
 interface ExpenseCreateDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   currencies: ICurrency[]
   categories: ICategory[]
-  employees: IEmployee[]
 }
 
 const ExpenseCreateDialog = ({
@@ -55,10 +54,9 @@ const ExpenseCreateDialog = ({
   onOpenChange,
   currencies,
   categories,
-  employees,
 }: ExpenseCreateDialogProps) => {
   const router = useRouter()
-
+  const { user } = useAuthContext()
   const [isPending, startTransition] = useTransition()
 
   const form = useForm<ExpenseFormData>({
@@ -68,22 +66,26 @@ const ExpenseCreateDialog = ({
       date: undefined,
       amount: 0,
       currencyId: '',
-      employeeId: '',
       categoryId: '',
     },
   })
 
   function onSubmit(data: ExpenseFormData) {
+    if (!user) {
+      return toast.error('Usuário não autenticado.')
+    }
+    console.log(user)
     startTransition(async () => {
       const payload = {
         ...data,
+        employeeId: String(user.employeeId),
         date: data.date.toISOString().split('T')[0],
         receiptUrl: `fake_nf_${data.receiptUrl.name}_${Date.now()}`,
         status: EExpenseStatus.PENDING,
       }
-
+      console.log(payload)
       await createExpense(payload)
-      toast.success('Despesa criada com sucesso.')
+      toast.success('Despesa criada com sucesso!')
 
       form.reset()
       onOpenChange(false)
@@ -190,31 +192,6 @@ const ExpenseCreateDialog = ({
                       {categories.map((category) => (
                         <SelectItem key={category.id} value={String(category.id)}>
                           {category.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="employeeId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Funcionário</FormLabel>
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione um funcionário" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {employees.map((employee) => (
-                        <SelectItem key={employee.id} value={String(employee.id)}>
-                          {employee.name}
                         </SelectItem>
                       ))}
                     </SelectContent>

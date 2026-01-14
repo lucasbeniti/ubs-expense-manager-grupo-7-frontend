@@ -8,6 +8,7 @@ import { UpdateButton } from '@/components/shared/update-button'
 import { Badge } from '@/components/ui/badge'
 import { EXPENSE_STATUS_STYLES } from '../constants'
 import ExpenseUpdateStatusDialog from './expense-update-status-dialog'
+import { useAuthContext } from '@/contexts/auth-context'
 
 export const expenseColumns: ColumnDef<IExpense>[] = [
   {
@@ -81,11 +82,28 @@ export const expenseColumns: ColumnDef<IExpense>[] = [
     enableGlobalFilter: false,
     cell: ({ row }) => {
       const expense = row.original
+      const { user } = useAuthContext()
 
-      return expense.status === EExpenseStatus.REJECTED ||
-        expense.status === EExpenseStatus.FINANCE_APPROVED ? (
-        'Sem ações disponíveis'
-      ) : (
+      if (user?.role === 'EMPLOYEE') {
+        return 'Sem ações disponíveis'
+      }
+
+      const isFinalized =
+        expense.status === EExpenseStatus.REJECTED ||
+        expense.status === EExpenseStatus.FINANCE_APPROVED
+
+      if (isFinalized) {
+        return 'Sem ações disponíveis'
+      }
+
+      const isManagerAndAlreadyApproved =
+        user?.role === 'MANAGER' && expense.status === EExpenseStatus.MANAGER_APPROVED
+
+      if (isManagerAndAlreadyApproved) {
+        return 'Sem ações disponíveis'
+      }
+
+      return (
         <UpdateButton entityName="despesa">
           {(open, setOpen) => (
             <ExpenseUpdateStatusDialog expense={expense} open={open} onOpenChange={setOpen} />

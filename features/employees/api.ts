@@ -1,8 +1,9 @@
 import { api } from '@/lib/http/api'
 import { IEmployee, CreateEmployeeDto, UpdateEmployeeDto } from './types'
+import { AxiosInstance } from 'axios'
 
-export const getEmployees = async (): Promise<IEmployee[]> => {
-  const { data } = await api.get<IEmployee[]>('/employees')
+export const getEmployees = async (axiosInstance: AxiosInstance = api): Promise<IEmployee[]> => {
+  const { data } = await axiosInstance.get<IEmployee[]>('/employees')
   return data
 }
 

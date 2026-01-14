@@ -85,10 +85,10 @@ const EmployeeUpsertDialog = ({
       try {
         if (isEditing) {
           await updateEmployee(defaultValues!.id, { ...data, cpf: data.cpf.replace(/\D/g, '') })
-          toast.success('Funcionário atualizado com sucesso.')
+          toast.success('Funcionário atualizado com sucesso!')
         } else {
           await createEmployee({ ...data, cpf: data.cpf.replace(/\D/g, '') })
-          toast.success('Funcionário criado com sucesso.')
+          toast.success('Funcionário criado com sucesso!')
         }
 
         form.reset()

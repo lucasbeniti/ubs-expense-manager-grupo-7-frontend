@@ -27,21 +27,25 @@ const ExpenseUpdateStatusDialog = ({
   const router = useRouter()
 
   const handleUpdateExpenseStatus = async (expense: IExpense, action: 'approve' | 'reject') => {
-    const nextStatus =
-      action === 'approve'
-        ? EXPENSE_STATUS_FLOW[expense.status].next
-        : EXPENSE_STATUS_FLOW[expense.status].reject
+    try {
+      const nextStatus =
+        action === 'approve'
+          ? EXPENSE_STATUS_FLOW[expense.status].next
+          : EXPENSE_STATUS_FLOW[expense.status].reject
 
-    if (!nextStatus) {
-      return toast.error(
-        `Despesa no status ${expense.status} não pode ser ${action === 'approve' ? 'aprovada' : 'reprovada'}`
-      )
+      if (!nextStatus) {
+        return toast.error(
+          `Despesa no status ${expense.status} não pode ser ${action === 'approve' ? 'aprovada' : 'reprovada'}`
+        )
+      }
+
+      await updateExpenseStatus(expense.id, nextStatus)
+
+      router.refresh()
+      toast.success('Despesa atualizada com sucesso!')
+    } catch (err) {
+      toast.error('Não foi possível aprovar a despesa')
     }
-
-    await updateExpenseStatus(expense.id, nextStatus)
-
-    router.refresh()
-    toast.success('Despesa atualizada com sucesso.')
   }
 
   return (

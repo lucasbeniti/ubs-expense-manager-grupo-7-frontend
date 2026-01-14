@@ -1,31 +1,33 @@
 import { api } from '@/lib/http/api'
+import { AxiosInstance } from 'axios'
 import { CreateExpenseDto, EExpenseStatus, IExpense } from './types'
 
-export const getExpenses = async (): Promise<IExpense[]> => {
-  const { data } = await api.get<IExpense[]>('/expenses')
-
+export const getExpenses = async (axiosInstance: AxiosInstance = api): Promise<IExpense[]> => {
+  const { data } = await axiosInstance.get<IExpense[]>('/expenses')
   return data
 }
 
-export const getExpenseById = async (id: string): Promise<IExpense> => {
-  const { data } = await api.get<IExpense>(`/expenses/${id}`)
-
+export const getExpenseById = async (
+  id: string,
+  axiosInstance: AxiosInstance = api
+): Promise<IExpense> => {
+  const { data } = await axiosInstance.get<IExpense>(`/expenses/${id}`)
   return data
 }
 
-export const createExpense = async (payload: CreateExpenseDto): Promise<IExpense> => {
-  const { data } = await api.post<IExpense>('/expenses', payload)
-
+export const createExpense = async (
+  payload: CreateExpenseDto,
+  axiosInstance: AxiosInstance = api
+): Promise<IExpense> => {
+  const { data } = await axiosInstance.post<IExpense>('/expenses', payload)
   return data
 }
 
 export const updateExpenseStatus = async (
   id: string,
-  status: EExpenseStatus
+  status: EExpenseStatus,
+  axiosInstance: AxiosInstance = api
 ): Promise<IExpense> => {
-  const { data } = await api.patch<IExpense>(`/expenses/${id}`, {
-    status,
-  })
-
+  const { data } = await axiosInstance.patch<IExpense>(`/expenses/${id}`, { status })
   return data
 }
