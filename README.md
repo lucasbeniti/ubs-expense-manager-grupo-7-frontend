@@ -321,6 +321,7 @@ Use as seguintes credenciais para testar diferentes perfis:
 ---
 
 - **Documentação Backend**: https://github.com/lucasbeniti/ubs-expense-manager-grupo-7-backend
+- - **Notion:** https://www.notion.so/Acesso-r-pido-2d245a6ea3f980e8a1d1ce460c5c8129?source=copy_link
 - Autores do Projeto:
 
 | Gabriel Lemos Barbosa |
