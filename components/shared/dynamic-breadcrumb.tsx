@@ -20,7 +20,7 @@ export function DynamicBreadcrumb() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbPage className="text-muted-foreground">Dashboard</BreadcrumbPage>
+            <BreadcrumbPage className="text-muted-foreground">Funcionalidades</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -33,7 +33,7 @@ export function DynamicBreadcrumb() {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbPage className="text-muted-foreground">Dashboard</BreadcrumbPage>
+          <BreadcrumbPage className="text-muted-foreground">Funcionalidades</BreadcrumbPage>
         </BreadcrumbItem>
 
         <BreadcrumbSeparator />
