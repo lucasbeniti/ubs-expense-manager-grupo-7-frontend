@@ -74,7 +74,7 @@ const ExpenseCreateDialog = ({
     if (!user) {
       return toast.error('Usuário não autenticado.')
     }
-    console.log(user)
+
     startTransition(async () => {
       const payload = {
         ...data,
@@ -83,7 +83,7 @@ const ExpenseCreateDialog = ({
         receiptUrl: `fake_nf_${data.receiptUrl.name}_${Date.now()}`,
         status: EExpenseStatus.PENDING,
       }
-      console.log(payload)
+
       await createExpense(payload)
       toast.success('Despesa criada com sucesso!')
 

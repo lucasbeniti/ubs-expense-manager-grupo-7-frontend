@@ -19,6 +19,7 @@ export interface IExpense {
   categoryName: string
   createdAt: string
   receiptUrl: string
+  managerId: string
 }
 
 export interface CreateExpenseDto {

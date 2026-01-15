@@ -84,7 +84,10 @@ export const expenseColumns: ColumnDef<IExpense>[] = [
       const expense = row.original
       const { user } = useAuthContext()
 
-      const canManagerAction = user?.role === 'MANAGER' && expense.status === EExpenseStatus.PENDING
+      const canManagerAction =
+        user?.role === 'MANAGER' &&
+        expense.status === EExpenseStatus.PENDING &&
+        expense.managerId === user.employeeId
 
       const canFinanceAction =
         user?.role === 'FINANCE' && expense.status === EExpenseStatus.MANAGER_APPROVED
