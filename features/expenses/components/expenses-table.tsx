@@ -3,7 +3,6 @@
 import { DataTable } from '@/components/ui/data-table'
 import { IExpense } from '../types'
 import { ICategory } from '@/features/categories/types'
-import { IEmployee } from '@/features/employees/types'
 import CreateExpenseButton from './create-expense-button'
 import { ICurrency } from '@/features/currencies/types'
 import { expenseColumns } from './expense-columns'
@@ -11,27 +10,15 @@ import { expenseColumns } from './expense-columns'
 interface ExpensesTableProps {
   expenses: IExpense[]
   categories: ICategory[]
-  employees: IEmployee[]
   currencies: ICurrency[]
 }
 
-export default function ExpensesTable({
-  expenses,
-  categories,
-  employees,
-  currencies,
-}: ExpensesTableProps) {
+export default function ExpensesTable({ expenses, categories, currencies }: ExpensesTableProps) {
   return (
     <DataTable
       data={expenses}
       columns={expenseColumns}
-      actions={
-        <CreateExpenseButton
-          categories={categories}
-          employees={employees}
-          currencies={currencies}
-        />
-      }
+      actions={<CreateExpenseButton categories={categories} currencies={currencies} />}
     />
   )
 }

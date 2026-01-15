@@ -3,16 +3,14 @@
 import { CreateButton } from '@/components/shared/create-button'
 import { ICurrency } from '@/features/currencies/types'
 import { ICategory } from '@/features/categories/types'
-import { IEmployee } from '@/features/employees/types'
 import ExpenseCreateDialog from './expense-create-dialog'
 
 interface CreateExpenseButtonProps {
   currencies: ICurrency[]
   categories: ICategory[]
-  employees: IEmployee[]
 }
 
-const CreateExpenseButton = ({ currencies, categories, employees }: CreateExpenseButtonProps) => {
+const CreateExpenseButton = ({ currencies, categories }: CreateExpenseButtonProps) => {
   return (
     <CreateButton
       entity="despesa"
@@ -22,7 +20,6 @@ const CreateExpenseButton = ({ currencies, categories, employees }: CreateExpens
           onOpenChange={onOpenChange}
           categories={categories}
           currencies={currencies}
-          employees={employees}
         />
       )}
     />
